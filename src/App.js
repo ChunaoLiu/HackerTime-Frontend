@@ -6,6 +6,12 @@ import  IDE  from './components/IDE'
 import { Dropdown } from "./components/Dropdown";
 import { Editor } from "./components/Editor";
 import { Highlighter } from "./components/Highlighter";
+import { Button, Checkbox, Form } from 'semantic-ui-react'
+
+
+// import Box from '@mui/material/Box';
+// import TextField from '@mui/material/TextField';
+
 
 import * as themes from "react-syntax-highlighter/dist/esm/styles/hljs";
 import * as languages from "react-syntax-highlighter/dist/esm/languages/hljs";
@@ -20,7 +26,7 @@ export default function App() {
   const [theme, setTheme] = useState("");
   return (
     
-    <div className="App">
+    < className="App">
       <div className="ControlsBox">
       <Dropdown
           defaultTheme={defaultLanguage}
@@ -42,15 +48,45 @@ export default function App() {
           {input}
         </Highlighter>
       </div>
-      <Main/>  
-    </div>
+      <Main/> 
+      
+      
+*/
+return (
+    <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Welcome Candidate!
+        </p>
+        {/* <TextField id="name" 
+        label="Filled" variant="filled" /> */}
+
+    <Form>
+        <Form.Field align='left'>
+          <label>First Name</label>
+          <input placeholder='First Name' />
+        </Form.Field>
+        <Form.Field align='left'>
+          <label>Last Name</label>
+          <input placeholder='Last Name' />
+        </Form.Field>
+        <Form.Field>
+          <Checkbox label='Allow Camera and Microphone access' />
+        </Form.Field>
+        <Button type='submit'>Submit</Button>
+      </Form>
+
+      </header>
+      
+  
     
    
      
-  );
-  */
-  return (
-    <IDE/>
+
+  
+  
+    
+    
   );
 
 }
