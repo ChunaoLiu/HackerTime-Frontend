@@ -1,17 +1,26 @@
-import logo from './logo.svg';
+import logo from "./logo.svg";
 import React, { useState } from "react";
-import './App.css';
-import Main from './Main'
-import  IDE  from './components/IDE'
+import "./App.css";
+import Main from "./Main";
+import IDE from "./components/IDE";
 import { Dropdown } from "./components/Dropdown";
 import { Editor } from "./components/Editor";
 import { Highlighter } from "./components/Highlighter";
 
 import * as themes from "react-syntax-highlighter/dist/esm/styles/hljs";
 import * as languages from "react-syntax-highlighter/dist/esm/languages/hljs";
-
-const defaultLanguage = <code>${"javascript" || Object.keys(languages).sort()[0]}</code>;
-const defaultTheme = <code>${"atomOneDark" || Object.keys(themes).sort()[0]}</code>;
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+const defaultLanguage = (
+  <code>${"javascript" || Object.keys(languages).sort()[0]}</code>
+);
+const defaultTheme = (
+  <code>${"atomOneDark" || Object.keys(themes).sort()[0]}</code>
+);
 
 export default function App() {
   /*
@@ -50,8 +59,12 @@ export default function App() {
   );
   */
   return (
-    <IDE/>
+    <>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={IDE} />
+        </Switch>
+      </Router>
+    </>
   );
-
 }
-
