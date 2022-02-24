@@ -18,7 +18,7 @@ export function Candidate() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo" width="200"/>
         <p>
           Welcome Candidate!
         </p>

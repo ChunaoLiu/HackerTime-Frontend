@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import  { useState } from "react";
 import './App.css';
-import Main from './Main'
+import Main from './components/Main'
 import  IDE  from './components/IDE'
 
 import * as React from 'react';
@@ -33,7 +33,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/HackerTime-Frontend/interview" element={<IDE />} />
+        <Route path="/HackerTime-Frontend/interview" element={<Main />} />
         <Route path="/HackerTime-Frontend/" element={<Candidate />} />
       </Routes>
     </BrowserRouter>
