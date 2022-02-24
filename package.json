@@ -4,10 +4,12 @@
   "homepage": "https://aNewbieProgrammer.github.io/HackerTime-Frontend/",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.7.1",
+    "@emotion/react": "^11.8.1",
     "@emotion/style": "^0.8.0",
+    "@emotion/styled": "^11.8.1",
     "@material-ui/core": "^4.12.3",
     "@material-ui/lab": "^4.0.0-alpha.60",
+    "@mui/icons-material": "^5.4.2",
     "@mui/material": "^5.4.1",
     "@mui/styled-engine-sc": "^5.4.1",
     "@testing-library/jest-dom": "^5.16.1",

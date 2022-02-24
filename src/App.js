@@ -5,7 +5,7 @@ import Main from './Main'
 import  IDE  from './components/IDE'
 
 import * as React from 'react';
-import {Candidate} from './Candidate'
+import {Candidate} from './components/Candidate'
 import ReactDOM from "react-dom";
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';

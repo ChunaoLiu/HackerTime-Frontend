@@ -4,6 +4,7 @@ import axios from 'axios'
 //import secret from '../../secrets/secret'
 import MonacoEditor from 'react-monaco-editor';
 import {code} from './defaultCode'
+import './Topbar.js'
 
 export default class IDE extends Component {
     state={
@@ -81,6 +82,7 @@ export default class IDE extends Component {
         console.log(this.state)
         return (
             <>
+                
                 <div className="container">
                     <div className="row">
                         <div className="col-12 mt-5">

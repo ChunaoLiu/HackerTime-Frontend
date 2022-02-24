@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from '../logo.svg';
+import '../App.css';
 import * as React from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 // import TextField from '@mui/material/TextField';
 
 
-export function Candidate() {
+export function Main() {
   const navigate = useNavigate();
   
   const routeChange = () =>{ 
@@ -20,12 +20,12 @@ export function Candidate() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Welcome Candidate!
+          Main Page
         </p>
         {/* <TextField id="name" 
         label="Filled" variant="filled" /> */}
 
-    <Form>
+    {/* <Form>
         <Form.Field align='left'>
           <label>First Name</label>
           <input placeholder='First Name' />
@@ -38,11 +38,11 @@ export function Candidate() {
           <Checkbox label='Allow Camera and Microphone access' />
         </Form.Field>
         <Button type='submit' onClick={routeChange}>Submit</Button>
-      </Form>
+      </Form> */}
 
       </header>
     </div>
   );
 }
 
-export default Candidate;
+export default Main;
