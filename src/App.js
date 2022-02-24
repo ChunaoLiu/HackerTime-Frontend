@@ -1,12 +1,23 @@
-import logo from "./logo.svg";
-import React, { useState } from "react";
-import "./App.css";
-import Main from "./Main";
-import IDE from "./components/IDE";
-import { Dropdown } from "./components/Dropdown";
-import { Editor } from "./components/Editor";
-import { Highlighter } from "./components/Highlighter";
+import logo from './logo.svg';
+import  { useState } from "react";
+import './App.css';
+import Main from './Main'
+import  IDE  from './components/IDE'
 
+import * as React from 'react';
+import {Candidate} from './Candidate'
+import ReactDOM from "react-dom";
+// import Box from '@mui/material/Box';
+// import TextField from '@mui/material/TextField';
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Redirect,
+  BrowserRouter,
+} from "react-router-dom";
+  
 import * as themes from "react-syntax-highlighter/dist/esm/styles/hljs";
 import * as languages from "react-syntax-highlighter/dist/esm/languages/hljs";
 import {
@@ -23,48 +34,20 @@ const defaultTheme = (
 );
 
 export default function App() {
-  /*
+  
+
   const [input, setInput] = useState("");
   const [language, setLanguage] = useState("");
   const [theme, setTheme] = useState("");
   return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/HackerTime-Frontend/interview" element={<IDE />} />
+        <Route path="/HackerTime-Frontend/" element={<Candidate />} />
+      </Routes>
+    </BrowserRouter>
     
-    <div className="App">
-      <div className="ControlsBox">
-      <Dropdown
-          defaultTheme={defaultLanguage}
-          onChange={(e) => setLanguage(e.target.value)}
-          data={languages}
-        />
-        <Dropdown
-          defaultTheme={defaultTheme}
-          onChange={(e) => setTheme(e.target.value)}
-          data={themes}
-        />
-      </div>
-      <div className="PanelsBox">
-      <Editor
-          placeHolder="Type your code here..."
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <Highlighter language={language} theme={themes[theme]}>
-          {input}
-        </Highlighter>
-      </div>
-      <Main/>  
-    </div>
-    
-   
-     
-  );
-  */
-  return (
-    <>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={IDE} />
-        </Switch>
-      </Router>
-    </>
   );
 }
+ReactDOM.render(<App />, document.getElementById("root"));
+
