@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import logo from './logo.svg';
 import React, { useState } from "react";
 import './App.css';
@@ -8,6 +9,11 @@ import { Editor } from "./components/Editor";
 import { Highlighter } from "./components/Highlighter";
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 
+=======
+import './App.css';
+import * as React from 'react';
+import {Candidate} from './Candidate'
+>>>>>>> Stashed changes
 
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
@@ -26,6 +32,7 @@ export default function App() {
   const [language, setLanguage] = useState("");
   const [theme, setTheme] = useState("");
   return (
+<<<<<<< Updated upstream
     
     < className="App">
       <div className="ControlsBox">
@@ -91,6 +98,9 @@ return (
   
     
     
+=======
+    <Candidate/>
+>>>>>>> Stashed changes
   );
 
 }
