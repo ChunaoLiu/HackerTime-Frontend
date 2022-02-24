@@ -21,6 +21,7 @@ const defaultTheme = <code>${"atomOneDark" || Object.keys(themes).sort()[0]}</co
 
 export default function App() {
   /*
+
   const [input, setInput] = useState("");
   const [language, setLanguage] = useState("");
   const [theme, setTheme] = useState("");
@@ -52,6 +53,9 @@ export default function App() {
       
       
 */
+    const sendRequest = async () => {
+
+    }
 return (
     <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -73,7 +77,7 @@ return (
         <Form.Field>
           <Checkbox label='Allow Camera and Microphone access' />
         </Form.Field>
-        <Button type='submit'>Submit</Button>
+        <Button type='submit' onPress={sendRequest}>Submit</Button>
       </Form>
 
       </header>
