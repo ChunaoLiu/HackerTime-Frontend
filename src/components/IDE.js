@@ -4,6 +4,9 @@ import axios from 'axios'
 //import secret from '../../secrets/secret'
 import MonacoEditor from 'react-monaco-editor';
 import {code} from './defaultCode'
+import Videochat from './Videochat'
+
+import Grid from '@material-ui/core/Grid';
 
 export default class IDE extends Component {
     state={
@@ -84,31 +87,40 @@ export default class IDE extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-12 mt-5">
-                        <select id="lang" onChange={(e) => this.onLangSelectHandler(e)}>
-                            <option value="cpp">C++</option>
-                            <option value="c">C</option>
-                            <option value="java">Java</option>
-                            <option value="python">Python</option>
-                        </select>
-                             <p className="lead d-block my-0">Code your code here</p>
-                             <div type="text" id="code">
-                             <MonacoEditor
-                                width="800"
-                                height="700"
-                                language={this.state.lang}
-                                theme="vs-dark"
-                                value={this.state.code}
-                                options={options}
-                                onChange={this.onCodeChangeHandler}
-                                editorDidMount={this.editorDidMount}
-                            />
-                             </div>
+                            <select id="lang" onChange={(e) => this.onLangSelectHandler(e)}>
+                                <option value="cpp">C++</option>
+                                <option value="c">C</option>
+                                <option value="java">Java</option>
+                                <option value="python">Python</option>
+                            </select>
+                            <p className="lead d-block my-0">Code your code here</p>
+                            <Grid container>
+                                <Grid item xs={12} sm={9} md={9}>
+                                    <div type="text" id="code">
+                                        <MonacoEditor
+                                            width="100%"
+                                            height="700"
+                                            language={this.state.lang}
+                                            theme="vs-dark"
+                                            value={this.state.code}
+                                            options={options}
+                                            onChange={this.onCodeChangeHandler}
+                                            editorDidMount={this.editorDidMount}
+                                        />
+                                    </div>
+                                </Grid>
+                                <Grid item xs={12} sm={3} md={3}>
+                                    <Videochat enabled={true}/>
+                                </Grid>
+                            </Grid>
                         </div>
+                                                
                         <div className="col-12 mt-3">
                             <p className="lead d-block my-0">Provide Input</p>
-                             <textarea type="text" id="input" value={this.state.input} onChange={this.onInputChangeHandler}>
-                             </textarea>
+                            <textarea type="text" id="input" value={this.state.input} onChange={this.onInputChangeHandler}>
+                            </textarea>
                         </div>
+                                                    
                     </div>
                     <button className="btn btn-success" onClick={this.onSubmitHandler}>Submit Code</button>
                     <div className="row">
