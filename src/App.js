@@ -1,17 +1,70 @@
+<<<<<<< Updated upstream
 import logo from './logo.svg';
+import React, { useState } from "react";
 import './App.css';
-import * as React from 'react';
+import Main from './Main'
+import  IDE  from './components/IDE'
+import { Dropdown } from "./components/Dropdown";
+import { Editor } from "./components/Editor";
+import { Highlighter } from "./components/Highlighter";
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 
+=======
+import './App.css';
+import * as React from 'react';
+import {Candidate} from './Candidate'
+>>>>>>> Stashed changes
 
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
 
 
-function App() {
+import * as themes from "react-syntax-highlighter/dist/esm/styles/hljs";
+import * as languages from "react-syntax-highlighter/dist/esm/languages/hljs";
+
+const defaultLanguage = <code>${"javascript" || Object.keys(languages).sort()[0]}</code>;
+const defaultTheme = <code>${"atomOneDark" || Object.keys(themes).sort()[0]}</code>;
+
+export default function App() {
+  /*
+
+  const [input, setInput] = useState("");
+  const [language, setLanguage] = useState("");
+  const [theme, setTheme] = useState("");
   return (
-    <div className="App">
-      <header className="App-header">
+<<<<<<< Updated upstream
+    
+    < className="App">
+      <div className="ControlsBox">
+      <Dropdown
+          defaultTheme={defaultLanguage}
+          onChange={(e) => setLanguage(e.target.value)}
+          data={languages}
+        />
+        <Dropdown
+          defaultTheme={defaultTheme}
+          onChange={(e) => setTheme(e.target.value)}
+          data={themes}
+        />
+      </div>
+      <div className="PanelsBox">
+      <Editor
+          placeHolder="Type your code here..."
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <Highlighter language={language} theme={themes[theme]}>
+          {input}
+        </Highlighter>
+      </div>
+      <Main/> 
+      
+      
+*/
+    const sendRequest = async () => {
+
+    }
+return (
+    <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Welcome Candidate!
@@ -31,12 +84,24 @@ function App() {
         <Form.Field>
           <Checkbox label='Allow Camera and Microphone access' />
         </Form.Field>
-        <Button type='submit'>Submit</Button>
+        <Button type='submit' onPress={sendRequest}>Submit</Button>
       </Form>
 
       </header>
-    </div>
+      
+  
+    
+   
+     
+
+  
+  
+    
+    
+=======
+    <Candidate/>
+>>>>>>> Stashed changes
   );
+
 }
 
-export default App;
