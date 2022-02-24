@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from '../logo.svg';
+import '../App.css';
 import * as React from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ export function Candidate() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo" width="200"/>
         <p>
           Welcome Candidate!
         </p>

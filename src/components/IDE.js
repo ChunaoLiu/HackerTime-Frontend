@@ -7,6 +7,7 @@ import {code} from './defaultCode'
 import Videochat from './Videochat'
 
 import Grid from '@material-ui/core/Grid';
+import './Topbar.js'
 
 export default class IDE extends Component {
     state={
@@ -84,6 +85,7 @@ export default class IDE extends Component {
         console.log(this.state)
         return (
             <>
+                
                 <div className="container">
                     <div className="row">
                         <div className="col-12 mt-5">
