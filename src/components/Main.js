@@ -19,8 +19,8 @@ export function Main() {
   return (
       
     <div className="Main">
-        <Topbar/>
-        <IDE/>
+    <Topbar/>    
+    <IDE/> 
       </div>
   );
 }

@@ -20,7 +20,7 @@ export default class IDE extends Component {
         e.preventDefault()
         alert("submit code")
         //axios.post(`${secret.url}code/submit`,this.state)
-        axios.post(`$code/submit`,this.state)
+        axios.post(`localhost:8080/getCode`,this.state)
             .then(res=>{
                 console.log(res.data)
                 const data = res.data
