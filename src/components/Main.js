@@ -19,7 +19,11 @@ export function Main() {
   return (
       
     <div className="Main">
-    <Topbar/>    
+        
+    <Topbar/>  
+    <p></p>
+    <p>.</p>
+    <p>.</p>  
     <IDE/> 
       </div>
   );
