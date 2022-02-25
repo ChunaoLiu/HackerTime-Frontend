@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import "./Videochat.css";
 import VideoOff from "../assets/video-off.svg";
 import VideoIcon from "../assets/video.svg";
@@ -7,13 +7,31 @@ import MicIcon from "../assets/mic.svg";
 
 const Videochat = () => {
     
-    const stream = true;
+    const [stream, setStream] = useState(true);
+    const myVideo = useRef()
 
+    //TODO: context
     
+    useEffect(()=>{
+      // TODO: instead of this, use Context to get stream
+      // if checked: note: add context or props to check 
+      navigator.mediaDevices
+      .getUserMedia({
+        audio: true,
+        video: true
+      })
+      .then((currentStream) => {
+        // setStream(currentStream)
+        // if (myVideo)
+        console.log(myVideo) 
+        if(myVideo.current.srcObject) myVideo.current.srcObject = currentStream;
+      });
+    }, [myVideo])
+
     const callAccepted = true;
     const callEnded = true;
     const userVideo = true; // ref
-    const myVideo   = true; // ref
+    // const myVideo   = true; // ref
 
     const name = 'A(You)';
     const userName = 'B';
@@ -46,6 +64,7 @@ const Videochat = () => {
               muted
               onClick={fullScreen}
               autoPlay
+              ref={myVideo}
               className="video-active"
               style={{
                 opacity: `${myVdoStatus ? "1" : "0"}`,
