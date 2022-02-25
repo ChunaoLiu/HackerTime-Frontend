@@ -10,19 +10,13 @@ import ReactDOM from "react-dom";
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Redirect,
-  BrowserRouter,
-} from "react-router-dom";
+
   
 import * as themes from "react-syntax-highlighter/dist/esm/styles/hljs";
 import * as languages from "react-syntax-highlighter/dist/esm/languages/hljs";
 import {
-  BrowserRouter as Router,
-  Switch,
+  BrowserRouter,
+  Routes,
   Route,
   Redirect,
 } from "react-router-dom";
