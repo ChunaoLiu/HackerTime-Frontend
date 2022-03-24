@@ -1,30 +1,37 @@
-import React, { useState, useRef, Component, useCallback } from 'react'
-import './Ide.css'
-
-import axios from 'axios'
-//import secret from '../../secrets/secret'
+import React, { useState, useRef, Component, useCallback, useEffect } from 'react'
 import MonacoEditor from 'react-monaco-editor';
-import {code} from './defaultCode'
+import {defaultCode} from './defaultCode'
 import Videochat from './Videochat'
-
+import axios from 'axios'
 import Grid from '@material-ui/core/Grid';
 import './Topbar.js'
 
 
-export default class IDE extends Component {
-    
-    state={
-        code: code.cpp,
-        result: 'Submit Code to See Result',
-        lang: 'cpp'
+export default function Editor() {
+    const [code, setCode] = useState()
+    const [result, setResult] = useState()
+    const [lang, setLang] = useState()
+    const [input, setInput] = useState()
 
-    }
+    const options = {
+        selectOnLineNumbers: true,
+        renderIndentGuides: true,
+        colorDecorators: true,
+        cursorBlinking: "blink",
+        autoClosingQuotes: "always",
+        find: {
+            autoFindInSelection: "always"
+        },
+        snippetSuggestions: "inline"
+    };
 
-    
-    
+    useEffect(() => {
+        setCode(defaultCode.cpp)
+        setResult('Submit Code to See Result')
+        setLang('cpp')
+    }, [])
 
-    
-    onSubmitHandler = (e) => {
+    const onSubmitHandler = (e) => {
         e.preventDefault()
         alert("submit code")
         //axios.post(`${secret.url}code/submit`,this.state)
@@ -48,55 +55,53 @@ export default class IDE extends Component {
                 console.log(err)
             })
     }
-    onCodeChangeHandler = (newCode, e) => {
+    const onCodeChangeHandler = (newCode, e) => {
         console.log(e)
         this.setState({
             code: newCode
         })
     }
    
-    onInputChangeHandler = (e) => {
+    const onInputChangeHandler = (e) => {
         this.setState({
             input: e.target.value
         })
     }
 
     
-    editorDidMount = (e) => {
+    const editorDidMount = (e) => {
         console.log("EDITOR MOUNTED")
     }
-
-
-    onLangSelectHandler = (e) => {
+    const onLangSelectHandler = (e) => {
         const lang = e.target.value
         this.setState({
             lang,
             code: code[lang]
         })
     }
-
-
-    render() {
-        const options = {
-            selectOnLineNumbers: true,
-            renderIndentGuides: true,
-            colorDecorators: true,
-            cursorBlinking: "blink",
-            autoClosingQuotes: "always",
-            find: {
-                autoFindInSelection: "always"
-            },
-            snippetSuggestions: "inline"
-          };
+    const wrapperRef = useCallback((wrapper) => {
+        if (wrapper == null) return
+        wrapper.innerHTML = ''
+        const editor = document.createElement("div")
+        wrapper.current.append(editor)
+        new MonacoEditor(editor, { 
+            width: "100%",
+            height: "700",
+            language: lang,
+            theme: "vs-dark",
+            value: code,
+            options: {options},
+            onChange: onCodeChangeHandler,
+            editorDidMount: editorDidMount})
         
-        
-        return (
+    }, [])
+    return (
             <>
                 
                 <div className="container">
                     <div className="row">
                         <div className="col-12 mt-5">
-                            <select id="lang" onChange={(e) => this.onLangSelectHandler(e)}>
+                            <select id="lang" onChange={(e) => onLangSelectHandler(e)}>
                                 <option value="cpp">C++</option>
                                 <option value="c">C</option>
                                 <option value="java">Java</option>
@@ -105,8 +110,8 @@ export default class IDE extends Component {
                             <p className="lead d-block my-0">Code your code here</p>
                             <Grid container>
                                 <Grid item xs={12} sm={9} md={9}>
-                                {/*<div type="text" id="code" ref={wrapperRef}></div> */}
-                                
+                                <div type="text" id="code" ref={wrapperRef}></div>
+                                {/*
                                     <div type="text" id="code">
                                         <MonacoEditor
                                             width="100%"
@@ -120,7 +125,7 @@ export default class IDE extends Component {
                                             editorDidMount={this.editorDidMount}
                                         />
                                     </div>
-                                
+                                */}
                                 </Grid>
                                 <Grid item xs={12} sm={3} md={3}>
                                     <Videochat enabled={true}/>
@@ -130,20 +135,19 @@ export default class IDE extends Component {
                                                 
                         <div className="col-12 mt-3">
                             <p className="lead d-block my-0">Provide Input</p>
-                            <textarea type="text" id="input" value={this.state.input} onChange={this.onInputChangeHandler}>
+                            <textarea type="text" id="input" value={input} onChange={onInputChangeHandler}>
                             </textarea>
                         </div>
                                                     
                     </div>
-                    <button className="btn btn-success" onClick={this.onSubmitHandler}>Submit Code</button>
+                    <button className="btn btn-success" onClick={onSubmitHandler}>Submit Code</button>
                     <div className="row">
                         <div className="col-12 my-5">
-                             <textarea type="text" id="result" value={this.state.result} disabled={true}>
+                             <textarea type="text" id="result" value= {result} disabled={true}>
                              </textarea>
                         </div>
                     </div>
                 </div>
             </>
         )
-    }
-  }
+}
