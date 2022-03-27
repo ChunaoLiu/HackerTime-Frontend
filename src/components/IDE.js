@@ -3,7 +3,7 @@ import './Ide.css'
 
 import axios from 'axios'
 //import secret from '../../secrets/secret'
-import MonacoEditor from 'react-monaco-editor';
+import Editor from "@monaco-editor/react";
 import {code} from './defaultCode'
 import Videochat from './Videochat'
 
@@ -108,14 +108,13 @@ export default class IDE extends Component {
                                 {/*<div type="text" id="code" ref={wrapperRef}></div> */}
                                 
                                     <div type="text" id="code">
-                                        <MonacoEditor
+                                        <Editor
                                             width="100%"
-                                            height="700"
+                                            height="70vh"
                                             language={this.state.lang}
                                             theme="vs-dark"
                                             value={this.state.code}
                                             options={options}
-                                            
                                             onChange={this.onCodeChangeHandler}
                                             editorDidMount={this.editorDidMount}
                                         />
