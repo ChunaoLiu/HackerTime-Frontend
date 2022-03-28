@@ -21,6 +21,7 @@
     "express": "^4.17.3",
     "gh-pages": "^3.2.3",
     "monaco-editor": "^0.32.1",
+    "net": "^1.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-monaco-editor": "^0.47.0",
@@ -31,6 +32,9 @@
     "scss": "^0.2.4",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.1.1",
+    "socket.io-client": "^4.4.1",
+    "sockjs-client": "^1.6.0",
+    "stompjs": "^2.3.3",
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.4"
   },

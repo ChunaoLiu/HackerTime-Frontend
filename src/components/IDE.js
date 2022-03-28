@@ -1,12 +1,13 @@
 import React, { useState, useRef, Component, useCallback } from 'react'
 import './Ide.css'
-
+import {io} from 'socket.io-client'
 import axios from 'axios'
 //import secret from '../../secrets/secret'
 import Editor from "@monaco-editor/react";
 import {code} from './defaultCode'
 import Videochat from './Videochat'
-
+import * as SockJS from 'sockjs-client';
+import * as Stomp from 'stompjs';
 import Grid from '@material-ui/core/Grid';
 import './Topbar.js'
 
@@ -27,8 +28,9 @@ export default class IDE extends Component {
     onSubmitHandler = (e) => {
         e.preventDefault()
         alert("submit code")
+        console.log(this.state)
         //axios.post(`${secret.url}code/submit`,this.state)
-        axios.post(`localhost:8080/getCode`,this.state)
+        axios.post(`http://localhost:8080/getCode`,this.state)
             .then(res=>{
                 console.log(res.data)
                 const data = res.data
@@ -37,7 +39,8 @@ export default class IDE extends Component {
                     this.setState({
                         result: data.error
                     })
-                }else{
+                }
+                else{
                     this.setState({
                         result: data.output
                     })
@@ -62,8 +65,22 @@ export default class IDE extends Component {
     }
 
     
+    
+    connect() {
+        var socket = new SockJS('http://localhost/8080/app');
+        console.log(socket)
+        var stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            //stompClient.subscribe('/topic/greetings', function (greeting) {
+                
+            //});
+        });
+    }
     editorDidMount = (e) => {
         console.log("EDITOR MOUNTED")
+        this.connect()
+        
     }
 
 
@@ -116,7 +133,7 @@ export default class IDE extends Component {
                                             value={this.state.code}
                                             options={options}
                                             onChange={this.onCodeChangeHandler}
-                                            editorDidMount={this.editorDidMount}
+                                            onMount={this.editorDidMount}
                                         />
                                     </div>
                                 
