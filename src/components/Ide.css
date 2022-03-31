@@ -1,8 +1,7 @@
 #code{
     min-height: 40vh;
-    min-width: 50vw;
+    /* width: 70%; */
     overflow-y: hidden;
-    resize: none;
 }
 
 #result{
@@ -17,3 +16,9 @@
     resize: none;
     overflow-y: hidden;
 }
+
+.IDE-board {
+    width: 100%!important;
+    padding-right: 20px!important;
+}
+

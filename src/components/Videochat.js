@@ -1,37 +1,19 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState} from 'react'
 import "./Videochat.css";
 import VideoOff from "../assets/video-off.svg";
 import VideoIcon from "../assets/video.svg";
 import MicOff from "../assets/mic-off.svg";
 import MicIcon from "../assets/mic.svg";
 
-const Videochat = () => {
+const Videochat = (props) => {
     
-    const [stream, setStream] = useState(true);
-    const myVideo = useRef()
+    const stream = true;
 
-    //TODO: context
     
-    useEffect(()=>{
-      // TODO: instead of this, use Context to get stream
-      // if checked: note: add context or props to check 
-      navigator.mediaDevices
-      .getUserMedia({
-        audio: true,
-        video: true
-      })
-      .then((currentStream) => {
-        // setStream(currentStream)
-        // if (myVideo)
-        console.log(myVideo) 
-        if(myVideo.current.srcObject) myVideo.current.srcObject = currentStream;
-      });
-    }, [myVideo])
-
     const callAccepted = true;
     const callEnded = true;
     const userVideo = true; // ref
-    // const myVideo   = true; // ref
+    const myVideo   = true; // ref
 
     const name = 'A(You)';
     const userName = 'B';
@@ -44,15 +26,65 @@ const Videochat = () => {
     const [myVdoStatus, setMyVdoStatus] = useState(true);
     const [myMicStatus, setMyMicStatus] = useState(true);
 
+    const [initialPos,   setInitialPos] = useState(null);
+    const [initialSize, setInitialSize] = useState(null);
+    const [collapse, setCollapse] = useState(false);
+
     const fullScreen = () => {
         return false;
     }
+
+    const initial = (e) => {
+        
+      let resizable = document.getElementById('Resizable_video');
+      
+      setInitialPos(e.clientX);
+      setInitialSize(resizable.offsetWidth);
+      
+    }
+    
+    const resize = (e) => {
+        
+        let resizable = document.getElementById('Resizable_video');
+        // resizable.style.right = '0px'
+        // resizable.style.left = `${parseInt(e.clientX)}px`
+        if(e.clientX > 0)
+          resizable.style.width = `${parseInt(initialSize) + parseInt(initialPos - e.clientX )}px`;
+        if(parseInt(resizable.style.width) < 300)    
+            resizable.style.width = '300px'
+        if(parseInt(resizable.style.width) > 500)    
+          resizable.style.width = '500px'
+
+      }
+
+    const hide = (e) => {
+        
+        let resizable = document.getElementById('Resizable_video');
+        if(collapse) {
+            document.getElementById('Resizable_video').style.display = 'inline'
+            resizable.style.width = `400px`;
+        }
+        else {
+            resizable.style.width = `0px`;
+            document.getElementById('Resizable_video').style.display = 'none'
+        }
+
+        setCollapse(!collapse)
+    }
     return (
-        <div className="grid">
-      {stream ? (
+        <div className="grid " >
+          <div id = 'Draggable_video'
+                draggable   = 'true'
+                onDragStart = {initial} 
+                onDrag      = {resize}
+                onClick     = {hide}
+          />
+
+          <div id = 'Resizable_video'>
+          {stream ? (
         <div
-          style={{ textAlign: "center" }}
-          className="card"
+          style={{ textAlign: "center", width:"100%" }}
+          className="card  col-lg-12"
           id={callAccepted && !callEnded ? "video1" : "video3"}
         >
           <div style={{ height: "2rem" }}>
@@ -64,7 +96,6 @@ const Videochat = () => {
               muted
               onClick={fullScreen}
               autoPlay
-              ref={myVideo}
               className="video-active"
               style={{
                 opacity: `${myVdoStatus ? "1" : "0"}`,
@@ -106,7 +137,7 @@ const Videochat = () => {
       )}
 
       { userVideo && (
-        <div className="card2" style={{ textAlign: "center" }} id="video2">
+        <div className="card2 col-lg-12" style={{ textAlign: "center" }} id="video2">
           <div style={{ height: "2rem" }}>
             <h3>{userName}</h3>
           </div>
@@ -147,6 +178,10 @@ const Videochat = () => {
           </div>
         </div>
       )}
+          </div>
+
+
+
     </div>
     )
 

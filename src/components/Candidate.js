@@ -1,7 +1,7 @@
 import logo from '../logo.svg';
 import '../App.css';
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 
@@ -13,41 +13,15 @@ export function Candidate (){
   const navigate = useNavigate();
   
   const [state, setState] = useState({
-    name: '',
-    localStream: null
+    name: ''
   });
   
-  useEffect(() => {
-    if (!navigator.onLine) alert("Connect to internet!");
-  }, [navigator]);
-
   const routeChange = () =>{ 
     
     let path = "/HackerTime-Frontend/interview"; 
     navigate(path);
   }
 
-  const startWebCam = () => {
-    const that = this;
-    navigator.mediaDevices
-      .getUserMedia({
-        audio: true,
-        video: true
-      })
-      .then((stream) => {
-        setState((prevState) => ({
-          ...prevState,
-          localStream: stream
-        }));
-      });
-  };
-
-  const stopWebCam = () => {
-    state.localStream.getTracks().forEach((track) => {
-      console.log(track)
-      track.stop();
-    });
-  };
 
   const handleOnSubmit = (event) => {
     event.preventDefault()
@@ -66,19 +40,7 @@ export function Candidate (){
     }));
   };
 
-  const handleOnChange = (event, v) => {
-    if(v.checked) {
-      // navigator.mediaDevices.getUserMedia({ audio: true, video: true })
-      startWebCam()
-    }
-    else {
-      // navigator.getUserMedia({ audio: true, video: true }, function(stream) {
-      //   console.log(stream)
-      //   stream.getTracks().forEach(x=>x.stop());
-      // }, err=>console.log(err));
-      stopWebCam()
-    }
-  }
+
 
   return (
     <div className="App">
@@ -101,7 +63,7 @@ export function Candidate (){
           <input placeholder='Last Name' id="lName" name="name"/>
         </Form.Field>
         <Form.Field>
-          <Checkbox label='Allow Camera and Microphone access' onChange={handleOnChange}/>
+          <Checkbox label='Allow Camera and Microphone access' />
         </Form.Field>
         <Button type='submit'>Submit</Button>
       </Form> }

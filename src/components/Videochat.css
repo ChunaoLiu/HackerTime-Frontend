@@ -1,13 +1,30 @@
+#Draggable_video {
+  background: rgba(1, 1, 1, 0.2);
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  cursor: col-resize;
+  height: 20px;
+  width: 10px;
+  margin-top: 330px;
+}
+#Resizable_video{
+  width: 100%;
+  height: auto;
+  justify-content: right;
+}
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 400px));
+    display: flex;
+    /* grid-template-columns: repeat(auto-fit, minmax(200px, 400px)); */
     /* grid-auto-rows: 330px; */
-    justify-content: center;
-    column-gap: 1rem;
+    justify-content: right;
+    /* column-gap: 1rem; */
     row-gap: 1rem;
     /* margin:1.5rem; */
     margin-left: 0.5rem;
-    margin-right:1.5rem;
+    margin-right:2.5rem;
+    margin-top: 60px!important;
+    padding: 0!;
   }
   
   .input_msg {
@@ -25,6 +42,7 @@
     border: 2px solid rgb(5, 117, 230, 1);
     border-image-slice: 1;    
     padding: 5px 0;
+    width: 90%!important;
   }
   
   .card2 {
@@ -37,6 +55,8 @@
     padding: 5px 0;
     border-radius: 5px;
     margin-top: 5px;
+    width: 90%!important;
+
   }
   
   .video-avatar-container {
