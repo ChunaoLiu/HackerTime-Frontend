@@ -1,26 +1,36 @@
-import React, { Component } from 'react'
+import React, { useState, useRef, Component, useCallback } from 'react'
 import './Ide.css'
+import {io} from 'socket.io-client'
 import axios from 'axios'
 //import secret from '../../secrets/secret'
-import MonacoEditor from 'react-monaco-editor';
+import Editor from "@monaco-editor/react";
 import {code} from './defaultCode'
 import Videochat from './Videochat'
-
+import * as SockJS from 'sockjs-client';
+import * as Stomp from 'stompjs';
 import Grid from '@material-ui/core/Grid';
 import './Topbar.js'
 
+
 export default class IDE extends Component {
+    
     state={
         code: code.cpp,
         result: 'Submit Code to See Result',
         lang: 'cpp'
+
     }
 
+    
+    
+
+    
     onSubmitHandler = (e) => {
         e.preventDefault()
         alert("submit code")
+        console.log(this.state)
         //axios.post(`${secret.url}code/submit`,this.state)
-        axios.post(`localhost:8080/getCode`,this.state)
+        axios.post(`http://localhost:8080/getCode`,this.state)
             .then(res=>{
                 console.log(res.data)
                 const data = res.data
@@ -29,7 +39,8 @@ export default class IDE extends Component {
                     this.setState({
                         result: data.error
                     })
-                }else{
+                }
+                else{
                     this.setState({
                         result: data.output
                     })
@@ -40,9 +51,6 @@ export default class IDE extends Component {
                 console.log(err)
             })
     }
-
-    
-    
     onCodeChangeHandler = (newCode, e) => {
         console.log(e)
         this.setState({
@@ -56,8 +64,23 @@ export default class IDE extends Component {
         })
     }
 
+    
+    
+    connect() {
+        var socket = new SockJS('http://localhost/8080/app');
+        console.log(socket)
+        var stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            //stompClient.subscribe('/topic/greetings', function (greeting) {
+                
+            //});
+        });
+    }
     editorDidMount = (e) => {
         console.log("EDITOR MOUNTED")
+        this.connect()
+        
     }
 
 
@@ -82,7 +105,8 @@ export default class IDE extends Component {
             },
             snippetSuggestions: "inline"
           };
-        console.log(this.state)
+        
+        
         return (
             <>
                 
@@ -98,18 +122,21 @@ export default class IDE extends Component {
                             <p className="lead d-block my-0">Code your code here</p>
                             <Grid container>
                                 <Grid item xs={12} sm={9} md={9}>
+                                {/*<div type="text" id="code" ref={wrapperRef}></div> */}
+                                
                                     <div type="text" id="code">
-                                        <MonacoEditor
+                                        <Editor
                                             width="100%"
-                                            height="700"
+                                            height="70vh"
                                             language={this.state.lang}
                                             theme="vs-dark"
                                             value={this.state.code}
                                             options={options}
                                             onChange={this.onCodeChangeHandler}
-                                            editorDidMount={this.editorDidMount}
+                                            onMount={this.editorDidMount}
                                         />
                                     </div>
+                                
                                 </Grid>
                                 <Grid item xs={12} sm={3} md={3}>
                                     <Videochat enabled={true}/>
@@ -135,4 +162,4 @@ export default class IDE extends Component {
             </>
         )
     }
-}
+  }

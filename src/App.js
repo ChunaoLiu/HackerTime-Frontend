@@ -10,19 +10,22 @@ import ReactDOM from "react-dom";
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Redirect,
-  BrowserRouter,
-} from "react-router-dom";
+
   
 import * as themes from "react-syntax-highlighter/dist/esm/styles/hljs";
 import * as languages from "react-syntax-highlighter/dist/esm/languages/hljs";
-
-const defaultLanguage = <code>${"javascript" || Object.keys(languages).sort()[0]}</code>;
-const defaultTheme = <code>${"atomOneDark" || Object.keys(themes).sort()[0]}</code>;
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Redirect,
+} from "react-router-dom";
+const defaultLanguage = (
+  <code>${"javascript" || Object.keys(languages).sort()[0]}</code>
+);
+const defaultTheme = (
+  <code>${"atomOneDark" || Object.keys(themes).sort()[0]}</code>
+);
 
 export default function App() {
   
@@ -39,7 +42,6 @@ export default function App() {
     </BrowserRouter>
     
   );
-
 }
 ReactDOM.render(<App />, document.getElementById("root"));
 
