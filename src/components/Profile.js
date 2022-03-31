@@ -4,6 +4,13 @@ import '../App.css';
 import * as React from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
@@ -21,11 +28,60 @@ export function Profile() {
     let path = "/HackerTime-Frontend/signup"; 
     navigate(path);
   }
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className="App">
-      <Form.Field align='right'>
-          <Button  type='submit' onClick={routeChange2}>Change Password</Button>
-        </Form.Field>
+      <Button align="right" variant="outlined"  onClick={handleClickOpen}>
+        Change Password
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Change Password</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Your password must be at least 6 characters and should include combinations of numbers, letters and special characters (!$@%)
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="Current password"
+            label="Current password"
+            type="password"
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="New password"
+            label="New password"
+            type="password"
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="New password"
+            label="New password, again"
+            type="password"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Save</Button>
+        </DialogActions>
+      </Dialog>
+
       <header className="App-header">
         
         <img src={pPic} className="Profile-Pic" alt="pPic" width="100"/>
@@ -34,31 +90,6 @@ export function Profile() {
         </p>
         <p align='center'>Sukriti Rai <br></br>Company: Purdue University</p>
         <Button type='submit' onClick={routeChange}>Start Interview</Button>
-    <Form>
-{/*         
-        <Form.Field align='left'>
-          <label>Name</label>
-          <input placeholder='Name' />
-        </Form.Field>
-        <Form.Field align='left'>
-          <label>Email</label>
-          <input placeholder='Email' />
-        </Form.Field>
-        <Form.Field align='left'>
-          <label>Company Name</label>
-          <input placeholder='Company Name' />
-        </Form.Field>
-        <Form.Field align='left'>
-          <label>Password</label>
-          <input placeholder='Password' />
-        </Form.Field>
-        <Form.Field align='left'>
-          <input placeholder='Retype Password' />
-          <input type="checkbox" id="scales" name="scales"></input>
-         <label>Agree with terms and conditions</label>
-        </Form.Field>
-        <Button type='submit' onClick={routeChange}>Create Account</Button> */}
-      </Form>
       </header>
     </div>
   );
