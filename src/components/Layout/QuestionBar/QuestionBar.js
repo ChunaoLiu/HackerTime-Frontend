@@ -20,9 +20,9 @@ const QuestionBar = () => {
         let resizable = document.getElementById('Resizable');
         resizable.style.width = `${parseInt(initialSize) + parseInt(e.clientX - initialPos)}px`;
         if(parseInt(resizable.style.width) < 100)    
-            resizable.style.width = '180px'
-        if(parseInt(resizable.style.width) > 500)    
-            resizable.style.width = '500px'
+            resizable.style.width = '100px'
+        if(parseInt(resizable.style.width) > 400)    
+            resizable.style.width = '400px'
 
     }
 
@@ -31,7 +31,7 @@ const QuestionBar = () => {
         let resizable = document.getElementById('Resizable');
         if(collapse) {
             resizable.style.display = 'inline'
-            resizable.style.width = `180px`;
+            resizable.style.width = `250px`;
         }
         else {
             resizable.style.display = 'none'
@@ -45,10 +45,8 @@ const QuestionBar = () => {
     return(
         <div className = 'Block ml-2'>
             <div id = 'Resizable' className='text-center'>
-                <h5 className='quiz-font'>Title</h5>
-                <input className='form-control col-lg-12' maxLength={100} placeholder="Code Problem Title" />
-                <h5 className='quiz-font'>Body</h5>
-                <input className='form-control col-lg-12' maxLength={100} placeholder="Code Problem Body"  />
+                <h5 className='quiz-font'>Question</h5>
+                <input className='form-control col-lg-12' maxLength={100} placeholder="Code Problem Name"  />
                 <h5 className='quiz-font'>Description</h5>
                 <textarea className=' col-lg-12' rows={5}></textarea>
             </div>
