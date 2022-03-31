@@ -29,6 +29,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "^3.0.1",
     "react-syntax-highlighter": "^15.4.5",
+    "react-webcam": "^7.0.0",
     "scss": "^0.2.4",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.1.1",

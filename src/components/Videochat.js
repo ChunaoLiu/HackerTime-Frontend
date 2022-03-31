@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import "./Videochat.css";
+import Webcam from "react-webcam";
 import VideoOff from "../assets/video-off.svg";
 import VideoIcon from "../assets/video.svg";
 import MicOff from "../assets/mic-off.svg";
@@ -143,15 +144,17 @@ const Videochat = (props) => {
           </div>
 
           <div className="video-avatar-container">
-            <video
-              playsInline             
-              onClick={fullScreen}
-              autoPlay
+          <Webcam 
+              // playsInline
+              // muted
+              // onClick={fullScreen}
+              // autoPlay
               className="video-active"
               style={{
                 opacity: `${userVdoStatus ? "1" : "0"}`,
               }}
             />
+            
           </div>
           <div className="iconsDiv">
             <div className="icons" onClick={() => setUserVdoStatus(!userVdoStatus)} disabled tabIndex="0">
