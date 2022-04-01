@@ -30,7 +30,8 @@ export default class IDE extends Component {
         alert("submit code")
         console.log(this.state)
         //axios.post(`${secret.url}code/submit`,this.state)
-        axios.post(`http://localhost:8080/getCode`,this.state)
+        let request = {code: this.state.code, lang: this.state.lang}
+        axios.post(`http://localhost:8080/getCode`,JSON.stringify(request))
             .then(res=>{
                 console.log(res.data)
                 const data = res.data
