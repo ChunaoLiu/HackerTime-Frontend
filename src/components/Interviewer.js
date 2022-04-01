@@ -4,6 +4,8 @@ import { useState } from 'react';
 import * as React from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
+import toastr from 'toastr'
+import 'toastr/build/toastr.min.css'
 
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
@@ -17,6 +19,20 @@ export function Interviewer() {
   });
   const routeChange = () =>{ 
     let path = "/HackerTime-Frontend/interview"; 
+    if(!checked) {
+      toastr.options = {
+        positionclassName : 'toast-top-right',
+        hideDuration: 300,
+        timeOut: 6000,
+        newestOnTop: false,
+        fontSize: "200px",
+      }
+      toastr.options.newestOnTop = false;
+      toastr.clear()
+      toastr.warning('Please allow your camera and mircrophone first');
+      return;
+    }
+
     navigate(path);
   }
   const routeChange2 = () =>{ 

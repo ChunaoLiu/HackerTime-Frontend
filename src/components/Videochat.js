@@ -53,8 +53,8 @@ const Videochat = (props) => {
           resizable.style.width = `${parseInt(initialSize) + parseInt(initialPos - e.clientX )}px`;
         if(parseInt(resizable.style.width) < 300)    
           resizable.style.width = '300px'
-        if(parseInt(resizable.style.width) > 450)    
-          resizable.style.width = '450px'
+        if(parseInt(resizable.style.width) > 500)    
+          resizable.style.width = '500px'
 
       }
 

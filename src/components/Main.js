@@ -25,7 +25,7 @@ export function Main() {
       <p></p>
       <p>.</p>
       <p>.</p>  
-      <div className='d-flex '>
+      <div className='d-flex'>
         <QuestionBar/>
         <IDE/> 
         <Videochat enabled={true}/>
