@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 import  IDE  from './components/IDE'
 
 import * as React from 'react';
-import {Interviewer} from './components/Interviewer'
+import {Login} from './components/Login'
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
 
@@ -42,7 +42,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/HackerTime-Frontend/interview" element={<Main />} />
-        <Route path="/HackerTime-Frontend/" element={<Interviewer />} />
+        <Route path="/HackerTime-Frontend/" element={<Login />} />
         <Route path="/HackerTime-Frontend/signup" element={<SignUp />} />
         <Route path="/HackerTime-Frontend/profile" element={<Profile />} />
       </Routes>
