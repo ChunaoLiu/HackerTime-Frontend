@@ -3,7 +3,9 @@
   /* height: 40vmin; */
   pointer-events: none;
 }
-
+.IDEdeco {
+  margin-top: 100;
+}
 
 .App-header {
   background-color: #ffffff;

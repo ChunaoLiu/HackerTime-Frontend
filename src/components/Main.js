@@ -1,10 +1,12 @@
 import logo from '../logo.svg';
 import '../App.css';
 import * as React from 'react';
-import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 import IDE from './IDE';
 import Topbar from './Topbar';
+import QuestionBar from './Layout/QuestionBar/QuestionBar';
+import Videochat from './Videochat'
+import Editor from './Editor'
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
 
@@ -19,9 +21,16 @@ export function Main() {
   return (
       
     <div className="Main">
-        <Topbar/>
-        <IDE/>
+      <Topbar/>  
+      <p></p>
+      <p>.</p>
+      <p>.</p>  
+      <div className='d-flex '>
+        <QuestionBar/>
+        <IDE/> 
+        <Videochat enabled={true}/>
       </div>
+    </div>
   );
 }
 

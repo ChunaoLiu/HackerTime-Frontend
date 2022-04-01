@@ -1,23 +1,36 @@
-import React, { Component } from 'react'
+import React, { useState, useRef, Component, useCallback } from 'react'
 import './Ide.css'
+import {io} from 'socket.io-client'
 import axios from 'axios'
 //import secret from '../../secrets/secret'
-import MonacoEditor from 'react-monaco-editor';
+import Editor from "@monaco-editor/react";
 import {code} from './defaultCode'
+import Videochat from './Videochat'
+import * as SockJS from 'sockjs-client';
+import * as Stomp from 'stompjs';
+import Grid from '@material-ui/core/Grid';
 import './Topbar.js'
 
+
+
 export default class IDE extends Component {
+    
     state={
         code: code.cpp,
         result: 'Submit Code to See Result',
-        lang: 'cpp'
+        lang: 'cpp',
+        sock: {}
     }
+    
+    
 
+    
     onSubmitHandler = (e) => {
         e.preventDefault()
         alert("submit code")
+        console.log(this.state)
         //axios.post(`${secret.url}code/submit`,this.state)
-        axios.post(`$code/submit`,this.state)
+        axios.post(`http://localhost:8080/getCode`,this.state)
             .then(res=>{
                 console.log(res.data)
                 const data = res.data
@@ -26,7 +39,8 @@ export default class IDE extends Component {
                     this.setState({
                         result: data.error
                     })
-                }else{
+                }
+                else{
                     this.setState({
                         result: data.output
                     })
@@ -37,14 +51,16 @@ export default class IDE extends Component {
                 console.log(err)
             })
     }
-
-    
-    
     onCodeChangeHandler = (newCode, e) => {
         console.log(e)
         this.setState({
             code: newCode
         })
+        // send code to backend when there's changes in code
+        // to socket
+        // return value
+        console.log(this.state.sock)
+        this.state.sock.send("/app/001", {}, this.state.code)
     }
    
     onInputChangeHandler = (e) => {
@@ -53,9 +69,46 @@ export default class IDE extends Component {
         })
     }
 
+    
+
+    refresh (e) {
+        this.setState({code: e})
+    }
+    
+    connect() {
+        //const WebSocketClient = require('websocket').client;
+        
+        
+        var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
+        console.log(socket)
+        
+        
+        var stompClient = Stomp.over(socket);
+
+        this.setState({sock: stompClient})
+        stompClient.connect({}, function connectCallback(frame) {
+            console.log('Connected: ' + frame);
+            
+            stompClient.subscribe('/topic/001', function (greeting) {
+                this.refresh(greeting.body)
+                //console.log(greeting)
+            }.bind(this));
+        }.bind(this),
+        function errorCallBack (error) {
+            console.log(error);
+        }
+        );
+        
+    }
     editorDidMount = (e) => {
         console.log("EDITOR MOUNTED")
+        this.connect()
+        
     }
+
+    
+
+    
 
 
     onLangSelectHandler = (e) => {
@@ -79,38 +132,49 @@ export default class IDE extends Component {
             },
             snippetSuggestions: "inline"
           };
-        console.log(this.state)
+        
+        
         return (
             <>
                 
                 <div className="container">
                     <div className="row">
                         <div className="col-12 mt-5">
-                        <select id="lang" onChange={(e) => this.onLangSelectHandler(e)}>
-                            <option value="cpp">C++</option>
-                            <option value="c">C</option>
-                            <option value="java">Java</option>
-                            <option value="python">Python</option>
-                        </select>
-                             <p className="lead d-block my-0">Code your code here</p>
-                             <div type="text" id="code">
-                             <MonacoEditor
-                                width="800"
-                                height="700"
-                                language={this.state.lang}
-                                theme="vs-dark"
-                                value={this.state.code}
-                                options={options}
-                                onChange={this.onCodeChangeHandler}
-                                editorDidMount={this.editorDidMount}
-                            />
-                             </div>
+                            <select id="lang" onChange={(e) => this.onLangSelectHandler(e)}>
+                                <option value="cpp">C++</option>
+                                <option value="c">C</option>
+                                <option value="java">Java</option>
+                                <option value="python">Python</option>
+                            </select>
+                            <p className="lead d-block my-0">Code your code here</p>
+                            <Grid container>
+                                <Grid item xs={12} sm={12} md={12}>
+                                {/*<div type="text" id="code" ref={wrapperRef}></div> */}
+                                
+                                    <div type="text" id="code">
+                                        <Editor
+                                            width="100%"
+                                            height="90vh"
+                                            language={this.state.lang}
+                                            theme="vs-dark"
+                                            value={this.state.code}
+                                            options={options}
+                                            onChange={this.onCodeChangeHandler}
+                                            onMount={this.editorDidMount}
+                                        />
+                                    </div>
+                                
+                                </Grid>
+                                
+                            </Grid>
                         </div>
+                                                
                         <div className="col-12 mt-3">
                             <p className="lead d-block my-0">Provide Input</p>
-                             <textarea type="text" id="input" value={this.state.input} onChange={this.onInputChangeHandler}>
-                             </textarea>
+                            <textarea type="text" id="input" value={this.state.input} onChange={this.onInputChangeHandler}>
+                            </textarea>
                         </div>
+                                                    
                     </div>
                     <button className="btn btn-success" onClick={this.onSubmitHandler}>Submit Code</button>
                     <div className="row">
@@ -123,4 +187,4 @@ export default class IDE extends Component {
             </>
         )
     }
-}
+  }

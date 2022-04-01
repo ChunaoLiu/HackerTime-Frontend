@@ -20,3 +20,6 @@ const python = `# Your code will come here
 export const code = {
     c, cpp, java, python
 }
+export const defaultCode = {
+    c, cpp, java, python
+}
