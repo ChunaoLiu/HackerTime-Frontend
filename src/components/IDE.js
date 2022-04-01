@@ -10,10 +10,9 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import Grid from '@material-ui/core/Grid';
 import './Topbar.js'
-import { Refresh } from '@mui/icons-material';
 
 
-var stompclient = null;
+
 export default class IDE extends Component {
     
     state={
