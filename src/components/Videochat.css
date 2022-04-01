@@ -6,7 +6,7 @@
   cursor: col-resize;
   height: 50px;
   width: 10px;
-  margin-top: 275px;
+  margin-top: 260px;
 }
 #Resizable_video{
   width: 100%;
@@ -65,7 +65,7 @@
     justify-content: center;
     position: relative;
     width: 100%;
-    min-height: 180px;
+    min-height: 165px;
     max-width: 400px;
     max-height: 100%;
     margin-top: 20px;
