@@ -144,7 +144,7 @@ export function Login() {
           <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
           <Button type='submit'>Login</Button>
         </Form>
-
+        <br></br>
         <p align='left'>
           Candidate Login
         </p>

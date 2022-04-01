@@ -11,6 +11,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from 'axios';
 import React, { useRef, useState, useEffect, useContext } from "react";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import ImageIcon from '@mui/icons-material/Image';
+import WorkIcon from '@mui/icons-material/Work';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import Divider from '@mui/material/Divider';
+
 
 
 // import Box from '@mui/material/Box';
@@ -56,7 +66,7 @@ function Profile() {
         console.log('Our response:')
         console.log(res)
       })
-    }
+  }
   const routeChange = () => {
     let path = "/HackerTime-Frontend/profile";
     navigator(path);
@@ -73,7 +83,7 @@ function Profile() {
 
   return (
     <div className="App">
-      <Button align="right" variant="outlined" onClick={handleClickOpen}>
+      <Button align='right' variant="outlined" onClick={handleClickOpen}>
         Change Password
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -122,6 +132,42 @@ function Profile() {
 
         </p>
         <p align='center'>{name}<br></br>Company: {companyName}</p>
+        
+        <List
+      sx={{
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
+      }}
+    >
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <ImageIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary="Interview 3 - Jen R" secondary="Jan 9, 2014" />
+      </ListItem>
+      <Divider variant="inset" component="li" />
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <WorkIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary="Interview 2 - Ben B" secondary="Jan 7, 2014" />
+      </ListItem>
+      <Divider variant="inset" component="li" />
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <BeachAccessIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary="Interview 1 - Ryan N" secondary="July 20, 2014" />
+      </ListItem>
+    </List>
+
         <Button type='submit' onClick={routeChange}>Start Interview</Button>
       </header>
     </div>
