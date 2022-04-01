@@ -46,6 +46,19 @@ export function Interviewer() {
         </Form.Field>
         <Button type='submit' onClick={routeChange3}>Login</Button>
       </Form>
+
+      <p align='left'>
+        Candidate Login
+        </p>
+
+    <Form>
+        
+        <Form.Field align='left'>
+          <label>Login Code</label>
+          <input placeholder='Code' />
+        </Form.Field>
+        <Button type='submit' onClick={routeChange}>Start Interview</Button>
+      </Form>
       </header>
     </div>
   );
