@@ -51,7 +51,7 @@ const SignUp = () => {
         console.log(res);
         console.log(res.data);
       })
-      routeChange();
+    routeChange();
   }
   return (
     <div>
