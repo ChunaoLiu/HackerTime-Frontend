@@ -34,13 +34,13 @@ export default class IDE extends Component {
             .then(res=>{
                 console.log(res.data)
                 const data = res.data
-                if(data.err){
+                console.log(res.data.err)
+                if(res.data.stderr){
                     // Error in user code
-                    this.setState({
-                        result: data.error
-                    })
+                    this.onResultChangeHandler(res.data.stderr);
                 }
                 else{
+                    console.log("hi");
                     this.onResultChangeHandler(res.data.stdout);
                 }
 
