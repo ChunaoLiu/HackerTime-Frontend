@@ -1,5 +1,6 @@
 import logo from '../logo.svg';
 import '../App.css';
+import { useState } from 'react';
 import * as React from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +11,10 @@ import { useNavigate } from 'react-router-dom';
 
 export function Interviewer() {
   const navigate = useNavigate();
-  
+  const [checked, setChecked] = useState(false);
+  const [state, setState] = useState({
+    name: ''
+  });
   const routeChange = () =>{ 
     let path = "/HackerTime-Frontend/interview"; 
     navigate(path);
@@ -22,6 +26,18 @@ export function Interviewer() {
   const routeChange3 = () =>{ 
     let path = "/HackerTime-Frontend/profile"; 
     navigate(path);
+  }
+  const fn_check = () => {
+    if(!checked) {
+      navigator.mediaDevices.getUserMedia({video: true, audio: true}).then( stream => {
+          window.localStream = stream; // A
+          window.localAudio.srcObject = stream; // B
+          window.localAudio.autoplay = true; // C
+      }).catch( err => {
+          console.log("You got error : " + err)
+      });
+    }
+    setChecked(!checked);
   }
   return (
     <div className="App">
@@ -59,6 +75,10 @@ export function Interviewer() {
         </Form.Field>
         <Button type='submit' onClick={routeChange}>Start Interview</Button>
       </Form>
+
+    <Form.Field>
+        <Checkbox onClick={fn_check} label='Allow Camera and Microphone access' />
+      </Form.Field>
       </header>
     </div>
   );
