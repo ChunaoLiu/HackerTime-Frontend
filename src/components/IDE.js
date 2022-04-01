@@ -36,7 +36,7 @@ export default class IDE extends Component {
         console.log(this.state)
         //axios.post(`${secret.url}code/submit`,this.state)
         let request = {code: this.state.code, lang: this.state.lang}
-        axios.post(`http://localhost:8080/getCode`,JSON.stringify(request))
+        axios.post(`http://localhost:8080/getCode`,this.state)
             .then(res=>{
                 console.log(res.data)
                 const data = res.data
@@ -58,14 +58,14 @@ export default class IDE extends Component {
             })
     }
     onCodeChangeHandler = (newCode, e) => {
-        console.log(e)
+        //console.log(e)
         this.setState({
             code: newCode
         })
         // send code to backend when there's changes in code
         // to socket
         // return value
-        console.log(this.state.sock)
+        //console.log(this.state.sock)
         this.state.sock.send("/app/001", {}, this.state.code)
     }
    
@@ -86,14 +86,14 @@ export default class IDE extends Component {
         
         
         var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
-        console.log(socket)
+        //console.log(socket)
         
         
         var stompClient = Stomp.over(socket);
 
         //this.setState({sock: stompClient})
         stompClient.connect({}, function connectCallback(frame) {
-            console.log('Connected: ' + frame);
+            //console.log('Connected: ' + frame);
             
             stompClient.subscribe('/topic/001', function (greeting) {
                 this.refresh(greeting.body)

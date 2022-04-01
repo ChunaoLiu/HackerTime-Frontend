@@ -107,11 +107,11 @@ export function Login() {
       } else if (err.response?.status === 400) {
           setErrMsg('Missing Username or Password');
       } else if (err.response?.status === 500 || err.response?.status === 401) {
-          setErrMsg('Unauthorized');
+          setErrMsg('Invalid or no account affiliated');
       } else {
           setErrMsg('Login Failed');
       }
-      // errRef.current.focus();
+      errRef.current.focus();
     }
     // .then(res => {
     //   console.log(res);
@@ -141,6 +141,7 @@ export function Login() {
             <label>Password</label>
             <input placeholder='Passwords' onChange={handleChangePw} />
           </Form.Field>
+          <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
           <Button type='submit'>Login</Button>
         </Form>
 
