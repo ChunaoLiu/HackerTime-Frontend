@@ -148,13 +148,13 @@ export default class IDE extends Component {
                             </select>
                             <p className="lead d-block my-0">Code your code here</p>
                             <Grid container>
-                                <Grid item xs={12} sm={9} md={9}>
+                                <Grid item xs={12} sm={12} md={12}>
                                 {/*<div type="text" id="code" ref={wrapperRef}></div> */}
                                 
                                     <div type="text" id="code">
                                         <Editor
                                             width="100%"
-                                            height="70vh"
+                                            height="90vh"
                                             language={this.state.lang}
                                             theme="vs-dark"
                                             value={this.state.code}
@@ -165,9 +165,7 @@ export default class IDE extends Component {
                                     </div>
                                 
                                 </Grid>
-                                <Grid item xs={12} sm={3} md={3}>
-                                    <Videochat enabled={true}/>
-                                </Grid>
+                                
                             </Grid>
                         </div>
                                                 
