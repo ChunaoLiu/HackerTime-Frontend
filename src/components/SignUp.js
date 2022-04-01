@@ -8,8 +8,8 @@ import React, { useRef, useState, useEffect } from "react";
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const routeChange = () => {
-    let path = "/HackerTime-Frontend/profile";
+  const routeChange = (e) => {
+    let path = "/HackerTime-Frontend";
     navigate(path);
   }
   const [name, setName] = useState();
@@ -48,10 +48,10 @@ const SignUp = () => {
       companyName: companyName
     })
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        console.log(res)
+        routeChange(res);
       })
-    routeChange();
+    
   }
   return (
     <div>
