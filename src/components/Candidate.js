@@ -4,7 +4,8 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
-
+import toastr from 'toastr'
+import 'toastr/build/toastr.min.css'
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
 
@@ -15,6 +16,7 @@ export function Candidate (){
   const [state, setState] = useState({
     name: ''
   });
+  const [checked, setChecked] = useState(false);
   
   const routeChange = () =>{ 
     
@@ -25,6 +27,19 @@ export function Candidate (){
 
   const handleOnSubmit = (event) => {
     event.preventDefault()
+    if(!checked) {
+      toastr.options = {
+        positionclassName : 'toast-top-right',
+        hideDuration: 300,
+        timeOut: 6000,
+        newestOnTop: false,
+        fontSize: "200px",
+      }
+      toastr.options.newestOnTop = false;
+      toastr.clear()
+      toastr.warning('Please allow your camera and mircrophone first');
+      return;
+    }
     
     let path = "/HackerTime-Frontend/interview"; 
     console.log(event.target.name.value);
@@ -39,6 +54,19 @@ export function Candidate (){
       [name]: value
     }));
   };
+
+  const fn_check = () => {
+    if(!checked) {
+      navigator.mediaDevices.getUserMedia({video: true, audio: true}).then( stream => {
+          window.localStream = stream; // A
+          window.localAudio.srcObject = stream; // B
+          window.localAudio.autoplay = true; // C
+      }).catch( err => {
+          console.log("You got error : " + err)
+      });
+    }
+    setChecked(!checked);
+  }
 
 
 
@@ -63,7 +91,7 @@ export function Candidate (){
           <input placeholder='Last Name' id="lName" name="name"/>
         </Form.Field>
         <Form.Field>
-          <Checkbox label='Allow Camera and Microphone access' />
+          <Checkbox onClick={fn_check} label='Allow Camera and Microphone access' />
         </Form.Field>
         <Button type='submit'>Submit</Button>
       </Form> }

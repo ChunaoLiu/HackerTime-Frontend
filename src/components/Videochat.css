@@ -23,7 +23,7 @@
     /* margin:1.5rem; */
     margin-left: 0.5rem;
     margin-right:2.5rem;
-    margin-top: 60px!important;
+    margin-top: 100px!important;
     padding: 0!;
   }
   
@@ -41,7 +41,7 @@
     border-radius: 5px;
     border: 2px solid rgb(5, 117, 230, 1);
     border-image-slice: 1;    
-    padding: 5px 0;
+    padding: 0 0;
     width: 90%!important;
   }
   
@@ -52,7 +52,7 @@
     /* justify-content: center; */
     align-items: center;
     border: 2px solid rgb(5, 117, 230, 1);
-    padding: 5px 0;
+    padding: 0 0;
     border-radius: 5px;
     margin-top: 5px;
     width: 90%!important;
@@ -60,20 +60,24 @@
   }
   
   .video-avatar-container {
-    display: flex;
+    display: flex;  
     align-items: center;
     justify-content: center;
     position: relative;
     width: 100%;
-    min-height: 147px;
+    min-height: 200px;
     max-width: 400px;
     max-height: 100%;
+    /* background-color: #010101; */
+    background-image: url('../assets/cam.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   
   .video-active {
     width: 100%;
-    background-color: #efefef;
-    height: 250px;
+    height: 100%;
+    /* background-color: #010101; */
   }
   
   .iconsDiv {

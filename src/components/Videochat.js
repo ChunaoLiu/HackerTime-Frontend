@@ -52,7 +52,7 @@ const Videochat = (props) => {
         if(e.clientX > 0)
           resizable.style.width = `${parseInt(initialSize) + parseInt(initialPos - e.clientX )}px`;
         if(parseInt(resizable.style.width) < 300)    
-            resizable.style.width = '300px'
+          resizable.style.width = '300px'
         if(parseInt(resizable.style.width) > 500)    
           resizable.style.width = '500px'
 
@@ -102,6 +102,16 @@ const Videochat = (props) => {
                 opacity: `${myVdoStatus ? "1" : "0"}`,
               }}
             />
+            {/* <Webcam 
+              // playsInline
+              // muted
+              // onClick={fullScreen}
+              // autoPlay
+              className="video-active"
+              style={{
+                opacity: `${userVdoStatus ? "1" : "0"}`,
+              }}
+            /> */}
           </div>
 
           <div className="iconsDiv">
@@ -138,7 +148,7 @@ const Videochat = (props) => {
       )}
 
       { userVideo && (
-        <div className="card2 col-lg-12" style={{ textAlign: "center" }} id="video2">
+        <div className="card2 mt-5 col-lg-12" style={{ textAlign: "center" }} id="video2">
           <div style={{ height: "2rem" }}>
             <h3>{userName}</h3>
           </div>
@@ -152,6 +162,7 @@ const Videochat = (props) => {
               className="video-active"
               style={{
                 opacity: `${userVdoStatus ? "1" : "0"}`,
+                height : "100%"
               }}
             />
             
