@@ -30,7 +30,6 @@ export default class IDE extends Component {
         alert("submit code")
         console.log(this.state)
         //axios.post(`${secret.url}code/submit`,this.state)
-        let request = {code: this.state.code, lang: this.state.lang}
         axios.post(`http://localhost:8080/getCode`,this.state)
             .then(res=>{
                 console.log(res.data)
@@ -42,9 +41,7 @@ export default class IDE extends Component {
                     })
                 }
                 else{
-                    this.setState({
-                        result: data.output
-                    })
+                    this.onResultChangeHandler(res.data.stdout);
                 }
 
             })
@@ -52,6 +49,8 @@ export default class IDE extends Component {
                 console.log(err)
             })
     }
+
+    
     onCodeChangeHandler = (newCode, e) => {
         //console.log(e)
         this.setState({
@@ -62,6 +61,12 @@ export default class IDE extends Component {
         // return value
         //console.log(this.state.sock)
         this.state.sock.send("/app/001", {}, this.state.code)
+    }
+
+    onResultChangeHandler = (newResult, e) => {
+        this.setState({
+            result: newResult
+        })
     }
    
     onInputChangeHandler = (e) => {
@@ -180,7 +185,7 @@ export default class IDE extends Component {
                     <button className="btn btn-success" onClick={this.onSubmitHandler}>Submit Code</button>
                     <div className="row">
                         <div className="col-12 my-5">
-                             <textarea type="text" id="result" value={this.state.result} disabled={true}>
+                             <textarea type="text" id="result" value={this.state.result} onChange={this.onResultChangeHandler}>
                              </textarea>
                         </div>
                     </div>
