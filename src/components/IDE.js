@@ -10,24 +10,20 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import Grid from '@material-ui/core/Grid';
 import './Topbar.js'
+import { Refresh } from '@mui/icons-material';
 
-let editorwidth, editorwidthorg;
+
+var stompclient = null;
 export default class IDE extends Component {
     
     state={
         code: code.cpp,
         result: 'Submit Code to See Result',
-        lang: 'cpp'
-
+        lang: 'cpp',
+        sock: {}
     }
-
     
-    componentDidMount() {
-        editorwidth = document.getElementById('code');
-        editorwidthorg = editorwidth.offsetWidth;
-        console.log(editorwidthorg)
-        editorwidth.style.width = '500px'
-    }
+    
 
     
     onSubmitHandler = (e) => {
@@ -61,6 +57,11 @@ export default class IDE extends Component {
         this.setState({
             code: newCode
         })
+        // send code to backend when there's changes in code
+        // to socket
+        // return value
+        console.log(this.state.sock)
+        this.state.sock.send("/app/001", {}, this.state.code)
     }
    
     onInputChangeHandler = (e) => {
@@ -70,23 +71,45 @@ export default class IDE extends Component {
     }
 
     
+
+    refresh (e) {
+        this.setState({code: e})
+    }
     
     connect() {
-        var socket = new SockJS('http://localhost/8080/app');
+        //const WebSocketClient = require('websocket').client;
+        
+        
+        var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
         console.log(socket)
+        
+        
         var stompClient = Stomp.over(socket);
-        stompClient.connect({}, function (frame) {
+
+        this.setState({sock: stompClient})
+        stompClient.connect({}, function connectCallback(frame) {
             console.log('Connected: ' + frame);
-            //stompClient.subscribe('/topic/greetings', function (greeting) {
-                
-            //});
-        });
+            
+            stompClient.subscribe('/topic/001', function (greeting) {
+                this.refresh(greeting.body)
+                //console.log(greeting)
+            }.bind(this));
+        }.bind(this),
+        function errorCallBack (error) {
+            console.log(error);
+        }
+        );
+        
     }
     editorDidMount = (e) => {
         console.log("EDITOR MOUNTED")
         this.connect()
         
     }
+
+    
+
+    
 
 
     onLangSelectHandler = (e) => {
@@ -111,13 +134,13 @@ export default class IDE extends Component {
             snippetSuggestions: "inline"
           };
         
-        console.log(editorwidth?.offsetWidth, "width")
+        
         return (
             <>
                 
-                <div className="ml-5 IDE-board ">
+                <div className="container">
                     <div className="row">
-                        <div className="w-100 mt-1">
+                        <div className="col-12 mt-5">
                             <select id="lang" onChange={(e) => this.onLangSelectHandler(e)}>
                                 <option value="cpp">C++</option>
                                 <option value="c">C</option>
@@ -125,12 +148,13 @@ export default class IDE extends Component {
                                 <option value="python">Python</option>
                             </select>
                             <p className="lead d-block my-0">Code your code here</p>
-                            <Grid container  >
-                                <Grid item xs={12} sm={9} md={12} id="code" className="">
+                            <Grid container>
+                                <Grid item xs={12} sm={9} md={9}>
                                 {/*<div type="text" id="code" ref={wrapperRef}></div> */}
                                 
-                                    <div type="text" >
+                                    <div type="text" id="code">
                                         <Editor
+                                            width="100%"
                                             height="70vh"
                                             language={this.state.lang}
                                             theme="vs-dark"
@@ -141,6 +165,9 @@ export default class IDE extends Component {
                                         />
                                     </div>
                                 
+                                </Grid>
+                                <Grid item xs={12} sm={3} md={3}>
+                                    <Videochat enabled={true}/>
                                 </Grid>
                             </Grid>
                         </div>
