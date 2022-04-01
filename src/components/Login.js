@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 // import TextField from '@mui/material/TextField';
 
 
-export function Interviewer() {
+export function Login() {
   const navigate = useNavigate();
   
   const routeChange = () =>{ 
@@ -51,4 +51,4 @@ export function Interviewer() {
   );
 }
 
-export default Interviewer;
+export default Login;
