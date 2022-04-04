@@ -1,16 +1,35 @@
 {
   "files": {
-    "main.css": "/HackerTime-Frontend/static/css/main.073c9b0a.css",
-    "main.js": "/HackerTime-Frontend/static/js/main.2a5a1fa6.js",
-    "static/js/787.fa84390e.chunk.js": "/HackerTime-Frontend/static/js/787.fa84390e.chunk.js",
-    "static/media/logo.svg": "/HackerTime-Frontend/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.css": "/HackerTime-Frontend/static/css/main.9eb14f51.chunk.css",
+    "main.js": "/HackerTime-Frontend/static/js/main.8a850bb7.chunk.js",
+    "main.js.map": "/HackerTime-Frontend/static/js/main.8a850bb7.chunk.js.map",
+    "runtime-main.js": "/HackerTime-Frontend/static/js/runtime-main.4095cc69.js",
+    "runtime-main.js.map": "/HackerTime-Frontend/static/js/runtime-main.4095cc69.js.map",
+    "static/css/2.444f7fe1.chunk.css": "/HackerTime-Frontend/static/css/2.444f7fe1.chunk.css",
+    "static/js/2.aa5594e3.chunk.js": "/HackerTime-Frontend/static/js/2.aa5594e3.chunk.js",
+    "static/js/2.aa5594e3.chunk.js.map": "/HackerTime-Frontend/static/js/2.aa5594e3.chunk.js.map",
+    "static/js/3.5f163ce5.chunk.js": "/HackerTime-Frontend/static/js/3.5f163ce5.chunk.js",
+    "static/js/3.5f163ce5.chunk.js.map": "/HackerTime-Frontend/static/js/3.5f163ce5.chunk.js.map",
     "index.html": "/HackerTime-Frontend/index.html",
-    "main.073c9b0a.css.map": "/HackerTime-Frontend/static/css/main.073c9b0a.css.map",
-    "main.2a5a1fa6.js.map": "/HackerTime-Frontend/static/js/main.2a5a1fa6.js.map",
-    "787.fa84390e.chunk.js.map": "/HackerTime-Frontend/static/js/787.fa84390e.chunk.js.map"
+    "precache-manifest.bbee265785c8b55ed4b2082f3313751e.js": "/HackerTime-Frontend/precache-manifest.bbee265785c8b55ed4b2082f3313751e.js",
+    "service-worker.js": "/HackerTime-Frontend/service-worker.js",
+    "static/css/2.444f7fe1.chunk.css.map": "/HackerTime-Frontend/static/css/2.444f7fe1.chunk.css.map",
+    "static/css/main.9eb14f51.chunk.css.map": "/HackerTime-Frontend/static/css/main.9eb14f51.chunk.css.map",
+    "static/js/2.aa5594e3.chunk.js.LICENSE.txt": "/HackerTime-Frontend/static/js/2.aa5594e3.chunk.js.LICENSE.txt",
+    "static/media/semantic.min.css": "/HackerTime-Frontend/static/media/outline-icons.ef60a4f6.woff",
+    "static/media/Videochat.css": "/HackerTime-Frontend/static/media/cam.01b8aa9d.jpg",
+    "static/media/logo.svg": "/HackerTime-Frontend/static/media/logo.cb907473.svg",
+    "static/media/mic-off.svg": "/HackerTime-Frontend/static/media/mic-off.170b051c.svg",
+    "static/media/mic.svg": "/HackerTime-Frontend/static/media/mic.4900efe2.svg",
+    "static/media/profile.svg": "/HackerTime-Frontend/static/media/profile.953c26b3.svg",
+    "static/media/video-off.svg": "/HackerTime-Frontend/static/media/video-off.6a30496f.svg",
+    "static/media/video.svg": "/HackerTime-Frontend/static/media/video.11ac87c4.svg"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.2a5a1fa6.js"
+    "static/js/runtime-main.4095cc69.js",
+    "static/css/2.444f7fe1.chunk.css",
+    "static/js/2.aa5594e3.chunk.js",
+    "static/css/main.9eb14f51.chunk.css",
+    "static/js/main.8a850bb7.chunk.js"
   ]
 }
