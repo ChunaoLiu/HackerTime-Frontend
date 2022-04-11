@@ -204,7 +204,7 @@ function Profile() {
         >
           <Modal.Header>Room Created!</Modal.Header>
           <Modal.Content>
-            <p>Please copy and provide the invitation link to the interviewer. Clicking "Finish" will take you to the room</p>
+            <p>Clicking "Finish" will take you to the room, Please copy and provide the invitation link in the room to the interviewer. </p>
           </Modal.Content>
           <Modal.Actions>
             <Button
