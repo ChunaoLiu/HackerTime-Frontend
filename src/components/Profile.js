@@ -71,6 +71,10 @@ function Profile() {
     let path = "/HackerTime-Frontend/profile";
     navigator(path);
   }
+  const routeChange2 = () => {
+    let path = "/HackerTime-Frontend/interview";
+    navigator(path);
+  }
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -169,7 +173,7 @@ function Profile() {
     </List>
 
     <>
-      <Button onClick={() => setFirstOpen(true)}>Open first Modal</Button>
+      <Button onClick={() => setFirstOpen(true)}>Start An Interview</Button>
 
       <Modal
         onClose={() => setFirstOpen(false)}
@@ -183,7 +187,7 @@ function Profile() {
           </div>
           <Modal.Description>
             <Form>
-              <TextArea placeholder='Please provide the coding question...' />
+              <TextArea placeholder='Please provide the coding question...' style={{ minWidth: 600 }} />
             </Form>
           </Modal.Description>
         </Modal.Content>
@@ -206,7 +210,7 @@ function Profile() {
             <Button
               icon='check'
               content='Finish'
-              onClick={() => {setSecondOpen(false); setFirstOpen(false)}}
+              onClick={() => {setSecondOpen(false); setFirstOpen(false); routeChange2()}}
             />
           </Modal.Actions>
         </Modal>
