@@ -1,7 +1,7 @@
 import logo from '../logo.svg';
 import pPic from '../profile.svg';
 import '../App.css';
-import { Button, Checkbox, Form } from 'semantic-ui-react'
+import { Button, Icon, Modal, TextArea, Checkbox, Form } from 'semantic-ui-react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -22,7 +22,6 @@ import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import Divider from '@mui/material/Divider';
 
 
-
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
 
@@ -30,7 +29,8 @@ import Divider from '@mui/material/Divider';
 function Profile() {
   const location = useLocation()
   // console.log(location.state.jwtToken);
-
+  const [firstOpen, setFirstOpen] = React.useState(false)
+  const [secondOpen, setSecondOpen] = React.useState(false)
   const navigator = useNavigate();
   const [name, setName] = useState();
   const [companyName, setCompanyName] = useState();
@@ -168,7 +168,50 @@ function Profile() {
       </ListItem>
     </List>
 
-        <Button type='submit' onClick={routeChange}>Start Interview</Button>
+    <>
+      <Button onClick={() => setFirstOpen(true)}>Open first Modal</Button>
+
+      <Modal
+        onClose={() => setFirstOpen(false)}
+        onOpen={() => setFirstOpen(true)}
+        open={firstOpen}
+      >
+        <Modal.Header>Question Details</Modal.Header>
+        <Modal.Content image>
+          <div className='image'>
+            <Icon name='right arrow' />
+          </div>
+          <Modal.Description>
+            <Form>
+              <TextArea placeholder='Please provide the coding question...' />
+            </Form>
+          </Modal.Description>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button onClick={() => setSecondOpen(true)} primary>
+            Create room <Icon name='right chevron' />
+          </Button>
+        </Modal.Actions>
+
+        <Modal
+          onClose={() => setSecondOpen(false)}
+          open={secondOpen}
+          size='small'
+        >
+          <Modal.Header>Room Created!</Modal.Header>
+          <Modal.Content>
+            <p>Please copy and provide the invitation link to the interviewer. Clicking "Finish" will take you to the room</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button
+              icon='check'
+              content='Finish'
+              onClick={() => {setSecondOpen(false); setFirstOpen(false)}}
+            />
+          </Modal.Actions>
+        </Modal>
+      </Modal>
+    </>
       </header>
     </div>
   );
