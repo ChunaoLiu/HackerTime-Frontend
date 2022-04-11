@@ -45,8 +45,6 @@ const QuestionBar = () => {
     return(
         <div className = 'Block ml-2'>
             <div id = 'Resizable' className='text-center'>
-                <h5 className='quiz-font'>Question</h5>
-                <input className='form-control col-lg-12' maxLength={100} placeholder="Code Problem Name"  />
                 <h5 className='quiz-font'>Description</h5>
                 <textarea className=' col-lg-12' rows={5}></textarea>
             </div>
