@@ -85,6 +85,12 @@ function Profile() {
     setOpen(false);
   };
 
+  const handleFinish = () => {
+    axios.post('http://localhost:3000/v1/hostroom')
+      .then(res => {res.redirect('/${res.data.roomId}')})
+
+  }
+
   return (
     <div className="App">
       <Button align='right' variant="outlined" onClick={handleClickOpen}>
@@ -210,7 +216,7 @@ function Profile() {
             <Button
               icon='check'
               content='Finish'
-              onClick={() => {setSecondOpen(false); setFirstOpen(false); routeChange2()}}
+              onClick={() => {setSecondOpen(false); setFirstOpen(false)}}
             />
           </Modal.Actions>
         </Modal>
