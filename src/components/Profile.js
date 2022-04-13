@@ -71,10 +71,7 @@ function Profile() {
     let path = "/HackerTime-Frontend/profile";
     navigator(path);
   }
-  const routeChange2 = () => {
-    let path = "/HackerTime-Frontend/interview";
-    navigator(path);
-  }
+  
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -86,8 +83,8 @@ function Profile() {
   };
 
   const handleFinish = () => {
-    axios.post('http://localhost:3000/v1/hostroom')
-      .then(res => {res.redirect('/${res.data.roomId}')})
+    axios.post('http://localhost:8080/hostroom')
+      .then(res => {res.redirect('/HackerTime-Frontend/interview${res.data.roomCode}')})
 
   }
 
@@ -216,7 +213,7 @@ function Profile() {
             <Button
               icon='check'
               content='Finish'
-              onClick={() => {setSecondOpen(false); setFirstOpen(false)}}
+              onClick={handleFinish}
             />
           </Modal.Actions>
         </Modal>
