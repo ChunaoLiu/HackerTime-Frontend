@@ -45,7 +45,7 @@ const QuestionBar = (props) => {
     return(
         <div className = 'Block ml-2'>
             <div id = 'Resizable' className='text-center'>
-                <h5 className='quiz-font'>Description</h5>
+                <h5 className='quiz-font'>Question</h5>
                 <textarea className=' col-lg-12' disabled={true} rows={5}>{props.question}</textarea>
             </div>
             <div id = 'Draggable'
