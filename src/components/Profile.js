@@ -36,6 +36,7 @@ function Profile() {
   const [companyName, setCompanyName] = useState();
   const [password, setPassword] = useState();
   const [jwtToken, setJwtToken] = useState();
+  const [question, setQuestion] = useState('');
   // setJwtToken(location.state.jwtToken);
   // setPassword(location.state.jwtToken);
   // setJwtToken(location.state.jwtToken);
@@ -83,9 +84,17 @@ function Profile() {
   };
 
   const handleFinish = () => {
-    axios.post('http://localhost:8080/hostroom')
-      .then(res => {res.redirect('/HackerTime-Frontend/interview${res.data.roomCode}')})
+    axios.post('http://localhost:8080/hostroom', {"question": question})
+      .then(res => {
+        navigator(`/HackerTime-Frontend/interview/${res.data.roomCode}`,
+        {state:{jwtToken: jwtToken, name: name, companyName: companyName, question: question}})
+      }
+    )
 
+  }
+
+  const handleChangeQuestion = (e) => {
+    setQuestion(e.target.value);
   }
 
   return (
@@ -190,7 +199,12 @@ function Profile() {
           </div>
           <Modal.Description>
             <Form>
-              <TextArea placeholder='Please provide the coding question...' style={{ minWidth: 600 }} />
+              <TextArea 
+                placeholder='Please provide the coding question...' 
+                style={{ minWidth: 600 }} 
+                value={question}
+                onChange={handleChangeQuestion}
+              />
             </Form>
           </Modal.Description>
         </Modal.Content>
