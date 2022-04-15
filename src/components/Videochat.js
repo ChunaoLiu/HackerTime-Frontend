@@ -51,10 +51,10 @@ const Videochat = (props) => {
         // resizable.style.left = `${parseInt(e.clientX)}px`
         if(e.clientX > 0)
           resizable.style.width = `${parseInt(initialSize) + parseInt(initialPos - e.clientX )}px`;
-        if(parseInt(resizable.style.width) < 300)    
-          resizable.style.width = '300px'
-        if(parseInt(resizable.style.width) > 450)    
-          resizable.style.width = '450px'
+        if(parseInt(resizable.style.width) < 210)
+          resizable.style.width = '210px'
+        if(parseInt(resizable.style.width) > 400)
+          resizable.style.width = '400px'
 
       }
 
@@ -63,7 +63,7 @@ const Videochat = (props) => {
         let resizable = document.getElementById('Resizable_video');
         if(collapse) {
             document.getElementById('Resizable_video').style.display = 'inline'
-            resizable.style.width = `400px`;
+            resizable.style.width = `300px`;
         }
         else {
             resizable.style.width = `0px`;
