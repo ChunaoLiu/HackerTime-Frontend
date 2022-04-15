@@ -23,8 +23,8 @@
     /* margin:1.5rem; */
     margin-left: 0.5rem;
     margin-right:2.5rem;
-    margin-top: 50px!important;
-    padding: 0!;
+    margin-top: 0px!important;
+    padding: 0!important;
   }
   
   .input_msg {
