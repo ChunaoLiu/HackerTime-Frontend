@@ -47,7 +47,7 @@ const Videochat = (props) => {
     const resize = (e) => {
         
         let resizable = document.getElementById('Resizable_video');
-        // resizable.style.right = '0px'
+         resizable.style.right = '10px'
         // resizable.style.left = `${parseInt(e.clientX)}px`
         if(e.clientX > 0)
           resizable.style.width = `${parseInt(initialSize) + parseInt(initialPos - e.clientX )}px`;
@@ -63,7 +63,7 @@ const Videochat = (props) => {
         let resizable = document.getElementById('Resizable_video');
         if(collapse) {
             document.getElementById('Resizable_video').style.display = 'inline'
-            resizable.style.width = `300px`;
+            resizable.style.width = `400px`;
         }
         else {
             resizable.style.width = `0px`;
@@ -83,25 +83,25 @@ const Videochat = (props) => {
 
           <div id = 'Resizable_video'>
           {stream ? (
-        <div
-          style={{ textAlign: "center", width:"100%" }}
-          className="card  col-lg-12"
-          id={callAccepted && !callEnded ? "video1" : "video3"}
-        >
-          <div style={{ height: "2rem" }}>
-            <h3>{name}</h3>
-          </div>
-          <div className="video-avatar-container">
-            <video
-              playsInline
-              muted
-              onClick={fullScreen}
-              autoPlay
-              className="video-active"
-              style={{
-                opacity: `${myVdoStatus ? "1" : "0"}`,
-              }}
-            />
+            <div
+              style={{ textAlign: "center", width:"100%" }}
+              className="card  col-lg-12"
+              id={callAccepted && !callEnded ? "video1" : "video3"}
+            >
+            <div style={{ height: "2rem" }}>
+              <h3>{name}</h3>
+            </div>
+            <div className="video-avatar-container">
+              <video
+                playsInline
+                muted
+                onClick={fullScreen}
+                autoPlay
+                className="video-active"
+                style={{
+                  opacity: `${myVdoStatus ? "1" : "0"}`,
+                }}
+              />
             {/* <Webcam 
               // playsInline
               // muted
@@ -146,9 +146,10 @@ const Videochat = (props) => {
           <div></div>
         </div>
       )}
+      <div className='mt-5'/>
 
       { userVideo && (
-        <div className="card2 mt-5 col-lg-12" style={{ textAlign: "center" }} id="video2">
+        <div className="card col-lg-12" style={{ textAlign: "center" }} id="video2">
           <div style={{ height: "2rem" }}>
             <h3>{userName}</h3>
           </div>
@@ -162,7 +163,7 @@ const Videochat = (props) => {
               className="video-active"
               style={{
                 opacity: `${userVdoStatus ? "1" : "0"}`,
-                height : "100%"
+                height : 'auto'
               }}
             />
             
