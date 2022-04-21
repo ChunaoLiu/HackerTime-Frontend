@@ -63,7 +63,7 @@ const Videochat = (props) => {
         let resizable = document.getElementById('Resizable_video');
         if(collapse) {
             document.getElementById('Resizable_video').style.display = 'inline'
-            resizable.style.width = `400px`;
+            resizable.style.width = `300px`;
         }
         else {
             resizable.style.width = `0px`;
