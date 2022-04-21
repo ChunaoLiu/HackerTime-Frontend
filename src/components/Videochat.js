@@ -16,8 +16,8 @@ const Videochat = (props) => {
     const userVideo = true; // ref
     const myVideo   = true; // ref
 
-    const name = 'A(You)';
-    const userName = 'B';
+    const name = 'Guest';
+    const userName = 'You';
 
     
 
