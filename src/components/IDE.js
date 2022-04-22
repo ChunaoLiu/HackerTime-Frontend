@@ -13,6 +13,7 @@ import './Topbar.js'
 
 let editorwidth, editorwidthorg;
 
+
 export default class IDE extends Component {
     
     state={
@@ -27,8 +28,6 @@ export default class IDE extends Component {
         console.log(editorwidthorg)
         editorwidth.style.width = '500px'
     }
-    
-
     
     onSubmitHandler = (e) => {
         e.preventDefault()
@@ -117,11 +116,6 @@ export default class IDE extends Component {
         
     }
 
-    
-
-    
-
-
     onLangSelectHandler = (e) => {
         const lang = e.target.value
         this.setState({
@@ -129,7 +123,6 @@ export default class IDE extends Component {
             code: code[lang]
         })
     }
-
 
     render() {
         const options = {
@@ -144,13 +137,11 @@ export default class IDE extends Component {
             snippetSuggestions: "inline"
           };
         
-        
         return (
             <>
-                
-                <div className="ml-5 IDE-board ">
+                <div className="ml-5 IDE-board">
                     <div className="row">
-                        <div className="w-100 mt-1">
+                        <div className="col-12 mt-1">
                             <select id="lang" onChange={(e) => this.onLangSelectHandler(e)}>
                                 <option value="cpp">C++</option>
                                 <option value="c">C</option>
@@ -164,7 +155,8 @@ export default class IDE extends Component {
                                 
                                     <div type="text" id="code">
                                         <Editor
-                                            height="70vh"
+                                            height="50vh"
+                                            width='auto'
                                             language={this.state.lang}
                                             theme="vs-dark"
                                             value={this.state.code}
@@ -173,23 +165,24 @@ export default class IDE extends Component {
                                             onMount={this.editorDidMount}
                                         />
                                     </div>
-                                
                                 </Grid>
-                                
+
                             </Grid>
                         </div>
                                                 
                         <div className="col-12 mt-3">
                             <p className="lead d-block my-0">Provide Input</p>
-                            <textarea type="text" id="input" value={this.state.input} onChange={this.onInputChangeHandler}>
+                            <textarea type="text"  className="w-100" style={{height: '50px'}} id="input" value={this.state.input} onChange={this.onInputChangeHandler}>
                             </textarea>
                         </div>
                                                     
                     </div>
-                    <button className="btn btn-success" onClick={this.onSubmitHandler}>Submit Code</button>
+                    <div>
+                        <button className="btn btn-success mt-2" onClick={this.onSubmitHandler}>Submit Code</button>
+                    </div>
                     <div className="row">
-                        <div className="col-12 my-5">
-                             <textarea type="text" id="result" value={this.state.result} onChange={this.onResultChangeHandler}>
+                        <div className="col-12 mt-3">
+                             <textarea type="text" id="result" className="w-100" value={this.state.result} onChange={this.onResultChangeHandler}>
                              </textarea>
                         </div>
                     </div>
