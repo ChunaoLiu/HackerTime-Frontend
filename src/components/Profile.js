@@ -201,7 +201,7 @@ function Profile() {
             <Form>
               <TextArea 
                 placeholder='Please provide the coding question...' 
-                style={{ minWidth: 600 }} 
+                style={{ minWidth: 600, minHeight:500 }}
                 value={question}
                 onChange={handleChangeQuestion}
               />
