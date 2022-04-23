@@ -1,7 +1,7 @@
 import logo from '../logo.svg';
 import pPic from '../profile.svg';
 import '../App.css';
-import { Button, Checkbox, Form } from 'semantic-ui-react'
+import { Button, Icon, Modal, TextArea, Checkbox, Form } from 'semantic-ui-react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -22,7 +22,6 @@ import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import Divider from '@mui/material/Divider';
 
 
-
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
 
@@ -30,12 +29,14 @@ import Divider from '@mui/material/Divider';
 function Profile() {
   const location = useLocation()
   // console.log(location.state.jwtToken);
-
+  const [firstOpen, setFirstOpen] = React.useState(false)
+  const [secondOpen, setSecondOpen] = React.useState(false)
   const navigator = useNavigate();
   const [name, setName] = useState();
   const [companyName, setCompanyName] = useState();
   const [password, setPassword] = useState();
   const [jwtToken, setJwtToken] = useState();
+  const [question, setQuestion] = useState('');
   // setJwtToken(location.state.jwtToken);
   // setPassword(location.state.jwtToken);
   // setJwtToken(location.state.jwtToken);
@@ -71,6 +72,7 @@ function Profile() {
     let path = "/HackerTime-Frontend/profile";
     navigator(path);
   }
+  
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -80,6 +82,20 @@ function Profile() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleFinish = () => {
+    axios.post('http://localhost:8080/hostroom', {"question": question})
+      .then(res => {
+        navigator(`/HackerTime-Frontend/interview/${res.data.roomCode}`,
+        {state:{jwtToken: jwtToken, name: name, companyName: companyName, question: question}})
+      }
+    )
+
+  }
+
+  const handleChangeQuestion = (e) => {
+    setQuestion(e.target.value);
+  }
 
   return (
     <div className="App">
@@ -168,7 +184,55 @@ function Profile() {
       </ListItem>
     </List>
 
-        <Button type='submit' onClick={routeChange}>Start Interview</Button>
+    <>
+      <Button onClick={() => setFirstOpen(true)}>Start An Interview</Button>
+
+      <Modal
+        onClose={() => setFirstOpen(false)}
+        onOpen={() => setFirstOpen(true)}
+        open={firstOpen}
+      >
+        <Modal.Header>Question Details</Modal.Header>
+        <Modal.Content image>
+          <div className='image'>
+            <Icon name='right arrow' />
+          </div>
+          <Modal.Description>
+            <Form>
+              <TextArea 
+                placeholder='Please provide the coding question...' 
+                style={{ minWidth: 600, minHeight:500 }}
+                value={question}
+                onChange={handleChangeQuestion}
+              />
+            </Form>
+          </Modal.Description>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button onClick={() => setSecondOpen(true)} primary>
+            Create room <Icon name='right chevron' />
+          </Button>
+        </Modal.Actions>
+
+        <Modal
+          onClose={() => setSecondOpen(false)}
+          open={secondOpen}
+          size='small'
+        >
+          <Modal.Header>Room Created!</Modal.Header>
+          <Modal.Content>
+            <p>Clicking "Finish" will take you to the room, Please copy and provide the invitation link in the room to the interviewer. </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button
+              icon='check'
+              content='Finish'
+              onClick={handleFinish}
+            />
+          </Modal.Actions>
+        </Modal>
+      </Modal>
+    </>
       </header>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './QuestionBar.css'
 
-const QuestionBar = () => {
+const QuestionBar = (props) => {
     const [initialPos,   setInitialPos] = useState(null);
     const [initialSize, setInitialSize] = useState(null);
     const [collapse, setCollapse] = useState(false);
@@ -46,9 +46,7 @@ const QuestionBar = () => {
         <div className = 'Block ml-2'>
             <div id = 'Resizable' className='text-center'>
                 <h5 className='quiz-font'>Question</h5>
-                <input className='form-control col-lg-12' maxLength={100} placeholder="Code Problem Name"  />
-                <h5 className='quiz-font'>Description</h5>
-                <textarea className=' col-lg-12' rows={5}></textarea>
+                <textarea className=' col-lg-12' disabled={true} rows={5}>{props.question}</textarea>
             </div>
             <div id = 'Draggable'
                 draggable   = 'true'

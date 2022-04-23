@@ -1,7 +1,7 @@
 import logo from '../logo.svg';
 import '../App.css';
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import IDE from './IDE';
 import Topbar from './Topbar';
 import QuestionBar from './Layout/QuestionBar/QuestionBar';
@@ -13,7 +13,13 @@ import Editor from './Editor'
 
 export function Main() {
   const navigate = useNavigate();
-  
+  const location = useLocation();
+  const {jwtToken, name, companyName, question} = location.state;
+  const { roomCode } = useParams();
+
+  console.log(name, companyName, question, 'question')
+  console.log(roomCode, 'roomCode')
+
   const routeChange = () =>{ 
     let path = "/HackerTime-Frontend/interview"; 
     navigate(path);
@@ -26,7 +32,7 @@ export function Main() {
       <p>.</p>
       <p>.</p>  
       <div className='d-flex '>
-        <QuestionBar/>
+        <QuestionBar question={question}/>
         <IDE/> 
         <Videochat enabled={true}/>
       </div>
