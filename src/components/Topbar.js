@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import logo from '../logo.svg';
 import { Checkbox, Form } from 'semantic-ui-react'
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import React, { useRef, useState, useEffect, useContext } from "react";
 import axios from 'axios';
 
@@ -17,7 +17,7 @@ export default function Topbar() {
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [jwtToken, setJwtToken] = useState('')
-  
+
   useEffect(() => {
   }, [email, password])
 
@@ -30,7 +30,7 @@ export default function Topbar() {
     // we need email
     // navigate(path, {state:{name: name, companyName: companyName, jwtToken: jwtToken}});
     console.log('route change')
-    navigate(path, {state:{jwtToken: e.data.jwtToken, name: e.data.name, companyName: e.data.companyName}});
+    navigate(path, { state: { jwtToken: e.data.jwtToken, name: e.data.name, companyName: e.data.companyName } });
   }
   const endInterview = async (event) => {
 
@@ -45,9 +45,9 @@ export default function Topbar() {
     //   const accessToken = response?.data?.accessToken;
     //   const roles = response?.data?.roles;
     //   // setAuth({ email, password, roles, accessToken });
-      
+
     //   setSuccess(true);
-      
+
     //   setEmail(response?.data?.email)
     //   setName(response?.data?.name)
     //   setCompanyName(response?.data?.companyName)
@@ -57,7 +57,7 @@ export default function Topbar() {
     //   //axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
 
     //   routeChange3(response);
-    }
+  }
   return (
     // <img src={logo} className="App-logo" alt="logo" />
     <Box sx={{ flexGrow: 1 }}>
