@@ -21,38 +21,26 @@ import WorkIcon from '@mui/icons-material/Work';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import Divider from '@mui/material/Divider';
 
-
-// import Box from '@mui/material/Box';
-// import TextField from '@mui/material/TextField';
-
-
 function Profile() {
   const location = useLocation()
-  // console.log(location.state.jwtToken);
   const [firstOpen, setFirstOpen] = React.useState(false)
   const [secondOpen, setSecondOpen] = React.useState(false)
   const navigator = useNavigate();
   const [name, setName] = useState();
   const [companyName, setCompanyName] = useState();
   const [password, setPassword] = useState();
+  const [email, setEmail] = useState();
   const [jwtToken, setJwtToken] = useState();
   const [question, setQuestion] = useState('');
-  // setJwtToken(location.state.jwtToken);
-  // setPassword(location.state.jwtToken);
-  // setJwtToken(location.state.jwtToken);
+  const [reports, setReports] = useState([]);
 
-  const handleChangeName = event => {
-    setName(event.target.value);
-  }
-  const handleChangeCName = event => {
-    setCompanyName(event.target.value);
-  }
   useEffect(() => {
     setJwtToken(location.state.jwtToken);
     setName(location.state.name);
     setCompanyName(location.state.companyName);
-    console.log(name + " " + companyName);
-    //start();
+    setEmail(location.state.email);
+    setPassword(location.state.password);
+    start();
   })
 
   const start = () => {
@@ -64,15 +52,15 @@ function Profile() {
       .then(res => {
         setName(res?.data?.name)
         setCompanyName(res?.data?.companyName)
-        console.log('Our response:')
-        console.log(res)
+        setReports(res.data.reports)
+        console.log("REPORTS RESPONSE: " + JSON.stringify(res.data))
       })
   }
   const routeChange = () => {
     let path = "/HackerTime-Frontend/profile";
     navigator(path);
   }
-  
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -84,17 +72,22 @@ function Profile() {
   };
 
   const handleFinish = () => {
-    axios.post('http://localhost:8080/hostroom', {"question": question})
+    axios.post('http://localhost:8080/hostroom', { "question": question })
       .then(res => {
         navigator(`/HackerTime-Frontend/interview/${res.data.roomCode}`,
-        {state:{jwtToken: jwtToken, name: name, companyName: companyName, question: question}})
+          { state: { jwtToken: jwtToken, name: name, companyName: companyName, question: question } })
       }
-    )
+
+      )
 
   }
 
   const handleChangeQuestion = (e) => {
     setQuestion(e.target.value);
+  }
+
+  const onListItemClick = (e) => {
+    console.log("Hi");
   }
 
   return (
@@ -148,91 +141,91 @@ function Profile() {
 
         </p>
         <p align='center'>{name}<br></br>Company: {companyName}</p>
-        
+
         <List
-      sx={{
-        width: '100%',
-        maxWidth: 360,
-        bgcolor: 'background.paper',
-      }}
-    >
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <ImageIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Interview 3 - Jen R" secondary="Jan 9, 2014" />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <WorkIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Interview 2 - Ben B" secondary="Jan 7, 2014" />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <BeachAccessIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Interview 1 - Ryan N" secondary="July 20, 2014" />
-      </ListItem>
-    </List>
-
-    <>
-      <Button onClick={() => setFirstOpen(true)}>Start An Interview</Button>
-
-      <Modal
-        onClose={() => setFirstOpen(false)}
-        onOpen={() => setFirstOpen(true)}
-        open={firstOpen}
-      >
-        <Modal.Header>Question Details</Modal.Header>
-        <Modal.Content image>
-          <div className='image'>
-            <Icon name='right arrow' />
-          </div>
-          <Modal.Description>
-            <Form>
-              <TextArea 
-                placeholder='Please provide the coding question...' 
-                style={{ minWidth: 600, minHeight:500 }}
-                value={question}
-                onChange={handleChangeQuestion}
-              />
-            </Form>
-          </Modal.Description>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button onClick={() => setSecondOpen(true)} primary>
-            Create room <Icon name='right chevron' />
-          </Button>
-        </Modal.Actions>
-
-        <Modal
-          onClose={() => setSecondOpen(false)}
-          open={secondOpen}
-          size='small'
+          sx={{
+            width: '100%',
+            maxWidth: 360,
+            bgcolor: 'background.paper',
+          }}
         >
-          <Modal.Header>Room Created!</Modal.Header>
-          <Modal.Content>
-            <p>Clicking "Finish" will take you to the room, Please copy and provide the invitation link in the room to the interviewer. </p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button
-              icon='check'
-              content='Finish'
-              onClick={handleFinish}
-            />
-          </Modal.Actions>
-        </Modal>
-      </Modal>
-    </>
+          <ListItem onClick={onListItemClick}>
+            <ListItemAvatar>
+              <Avatar>
+                <ImageIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="Interview 3 - Jen R" secondary="Jan 9, 2014" />
+          </ListItem>
+          <Divider variant="inset" component="li" />
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <WorkIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="Interview 2 - Ben B" secondary="Jan 7, 2014" />
+          </ListItem>
+          <Divider variant="inset" component="li" />
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <BeachAccessIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="Interview 1 - Ryan N" secondary="July 20, 2014" />
+          </ListItem>
+        </List>
+
+        <>
+          <Button onClick={() => setFirstOpen(true)}>Start An Interview</Button>
+
+          <Modal
+            onClose={() => setFirstOpen(false)}
+            onOpen={() => setFirstOpen(true)}
+            open={firstOpen}
+          >
+            <Modal.Header>Question Details</Modal.Header>
+            <Modal.Content image>
+              <div className='image'>
+                <Icon name='right arrow' />
+              </div>
+              <Modal.Description>
+                <Form>
+                  <TextArea
+                    placeholder='Please provide the coding question...'
+                    style={{ minWidth: 600, minHeight: 500 }}
+                    value={question}
+                    onChange={handleChangeQuestion}
+                  />
+                </Form>
+              </Modal.Description>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button onClick={() => setSecondOpen(true)} primary>
+                Create room <Icon name='right chevron' />
+              </Button>
+            </Modal.Actions>
+
+            <Modal
+              onClose={() => setSecondOpen(false)}
+              open={secondOpen}
+              size='small'
+            >
+              <Modal.Header>Room Created!</Modal.Header>
+              <Modal.Content>
+                <p>Clicking "Finish" will take you to the room, Please copy and provide the invitation link in the room to the interviewer. </p>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button
+                  icon='check'
+                  content='Finish'
+                  onClick={handleFinish}
+                />
+              </Modal.Actions>
+            </Modal>
+          </Modal>
+        </>
       </header>
     </div>
   );

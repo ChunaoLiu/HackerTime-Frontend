@@ -27,7 +27,7 @@ export function Main() {
   return (
       
     <div className="Main">
-      <Topbar/>  
+      <Topbar code={'mock code'} question={"FIrst question"} IntervieweeName={"Reesh"}/>  
       <p></p>
       <p>.</p>
       <p>.</p>  

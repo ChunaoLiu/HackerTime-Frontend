@@ -65,10 +65,8 @@ export function Login() {
 
   const routeChange3 = (e) => {
     let path = "/HackerTime-Frontend/profile";
-    // we need email
-    // navigate(path, {state:{name: name, companyName: companyName, jwtToken: jwtToken}});
-    console.log('route change')
-    navigate(path, { state: { jwtToken: e.data.jwtToken, name: e.data.name, companyName: e.data.companyName } });
+    console.log('route change');
+    navigate(path, { state: { jwtToken: e.data.jwtToken, name: e.data.name, companyName: e.data.companyName} });
   }
   const fn_check = () => {
     if (!checked) {
