@@ -28,7 +28,7 @@ export function Login() {
   const userRef = useRef();
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState('');
-  
+
 
   const handleChangeEmail = event => {
     setEmail(event.target.value);
@@ -39,9 +39,9 @@ export function Login() {
 
   const routeChange = () => {
     let path = "/HackerTime-Frontend/interview";
-    if(!checked) {
+    if (!checked) {
       toastr.options = {
-        positionclassName : 'toast-top-right',
+        positionclassName: 'toast-top-right',
         hideDuration: 300,
         timeOut: 6000,
         newestOnTop: false,
@@ -65,10 +65,8 @@ export function Login() {
 
   const routeChange3 = (e) => {
     let path = "/HackerTime-Frontend/profile";
-    // we need email
-    // navigate(path, {state:{name: name, companyName: companyName, jwtToken: jwtToken}});
-    console.log('route change')
-    navigate(path, {state:{jwtToken: e.data.jwtToken, name: e.data.name, companyName: e.data.companyName}});
+    console.log('route change');
+    navigate(path, { state: { jwtToken: e.data.jwtToken, name: e.data.name, companyName: e.data.companyName} });
   }
   const fn_check = () => {
     if (!checked) {
@@ -90,7 +88,7 @@ export function Login() {
   useEffect(() => {
     setErrMsg('');
   }, [email, password])
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -102,9 +100,9 @@ export function Login() {
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       // setAuth({ email, password, roles, accessToken });
-      
+
       setSuccess(true);
-      
+
       setEmail(response?.data?.email)
       setName(response?.data?.name)
       setCompanyName(response?.data?.companyName)
@@ -117,13 +115,13 @@ export function Login() {
     } catch (err) {
       //routeChange3();
       if (!err?.response) {
-          setErrMsg('No Server Response');
+        setErrMsg('No Server Response');
       } else if (err.response?.status === 400) {
-          setErrMsg('Missing Username or Password');
+        setErrMsg('Missing Username or Password');
       } else if (err.response?.status === 500 || err.response?.status === 401) {
-          setErrMsg('Invalid or no account affiliated');
+        setErrMsg('Invalid or no account affiliated');
       } else {
-          setErrMsg('Login Failed');
+        setErrMsg('Login Failed');
       }
       errRef.current.focus();
     }
