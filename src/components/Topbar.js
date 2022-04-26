@@ -19,12 +19,16 @@ export default function Topbar(props) {
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [jwtToken, setJwtToken] = useState('')
+  const [question, setQuestion] = useState('')
+  const [code, setCode] = useState('')
+  const [output, setOutput] = useState('')
   useEffect(() => {
     setJwtToken(location.state.jwtToken);
     setName(location.state.name);
     setCompanyName(location.state.companyName);
     setEmail(location.state.email);
     setPassword(location.state.password);
+    setQuestion(location.state.question);
   }, [location])
 
   const copy = async () => {
@@ -37,11 +41,15 @@ export default function Topbar(props) {
     console.log('route change')
     navigate(path, { state: { jwtToken: e.data.jwtToken, name: e.data.name, companyName: e.data.companyName } });
   }
+  const test = async () => {
+    console.log("🤩 Q:" + question);
+    console.log("🤩" + props.code);
+    console.log("🤩" + props.output);
+  }
   const endInterview = useCallback(() => {
-    //console.log(`Check: Question: ${props.question} Code${props.code} ${props.IntervieweeName}`);
     // make post request and save response
     axios.post('http://localhost:8080/v1/end-meeting', {
-      "question": props.question, 
+      "question": question,
       "code": props.code
     }, {
       headers: {
@@ -56,9 +64,9 @@ export default function Topbar(props) {
             name: name,
             companyName: companyName
           }
-       })
+        })
     })
-  }, [jwtToken, name, companyName])
+  }, [jwtToken, name, companyName, props.code, props.output])
 
   return (
     // <img src={logo} className="App-logo" alt="logo" />
@@ -72,6 +80,7 @@ export default function Topbar(props) {
           {/* axios.get('localost:8080/'); */}
           <Button color="inherit" onClick={copy}>http://hackertime/v1/hostroom</Button>
           <Button color="inherit">Sukriti Rai</Button>
+          <Button color="inherit" onClick={test}>Test</Button>
           <Button color="inherit" onClick={endInterview}>End Interview</Button>
         </Toolbar>
       </AppBar>

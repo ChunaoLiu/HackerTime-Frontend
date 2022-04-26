@@ -17,7 +17,8 @@ export function Main() {
   const {jwtToken, name, companyName, question} = location.state;
   const { roomCode } = useParams();
 
-  console.log(name, companyName, question, 'question')
+  const [curCode, setCurCode] = React.useState('');
+  const [curOutput, setCurOutput] = React.useState('');
   console.log(roomCode, 'roomCode')
 
   const routeChange = () =>{ 
@@ -27,13 +28,13 @@ export function Main() {
   return (
       
     <div className="Main">
-      <Topbar code={'mock code'} question={"FIrst question"} IntervieweeName={"Reesh"}/>  
+      <Topbar output = {curOutput} code={curCode} IntervieweeName={"Reesh"}/>  
       <p></p>
       <p>.</p>
       <p>.</p>  
       <div className='d-flex '>
         <QuestionBar question={question}/>
-        <IDE/> 
+        <IDE setCurOutput = {setCurOutput} setCurCode = {setCurCode}/>
         <Videochat enabled={true}/>
       </div>
     </div>

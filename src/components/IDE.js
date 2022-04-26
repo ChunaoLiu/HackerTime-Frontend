@@ -1,4 +1,4 @@
-import React, { useState, useRef, Component, useCallback } from 'react'
+import React, { useEffect, useState, useRef, Component, useCallback } from 'react'
 import './Ide.css'
 import {io} from 'socket.io-client'
 import axios from 'axios'
@@ -13,20 +13,22 @@ import './Topbar.js'
 
 let editorwidth, editorwidthorg;
 
-
 export default class IDE extends Component {
-    
+
     state={
         code: code.cpp,
         result: 'Submit Code to See Result',
         lang: 'cpp',
         sock: {}
     }
+
+
     componentDidMount() {
         editorwidth = document.getElementById('code');
         editorwidthorg = editorwidth.offsetWidth;
-        console.log(editorwidthorg)
-        editorwidth.style.width = '500px'
+        console.log(editorwidthorg);
+        editorwidth.style.width = '500px';
+        // this.props.setCurCode(code.cpp);
     }
     
     onSubmitHandler = (e) => {
@@ -42,12 +44,13 @@ export default class IDE extends Component {
                 if(res.data.stderr){
                     // Error in user code
                     this.onResultChangeHandler(res.data.stderr);
+                    this.props.setCurOutput(res.data.stderr);
                 }
                 else{
                     console.log("hi");
                     this.onResultChangeHandler(res.data.stdout);
+                    this.props.setCurOutput(res.data.stdout);
                 }
-
             })
             .catch(err=>{
                 console.log(err)
@@ -56,7 +59,8 @@ export default class IDE extends Component {
 
     
     onCodeChangeHandler = (newCode, e) => {
-        //console.log(e)
+        this.props.setCurCode(newCode);
+
         this.setState({
             code: newCode
         })
@@ -122,6 +126,7 @@ export default class IDE extends Component {
             lang,
             code: code[lang]
         })
+        this.props.setCurCode(code[lang]);
     }
 
     render() {
