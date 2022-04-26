@@ -14,7 +14,7 @@ import Editor from './Editor'
 export function Main() {
   const navigate = useNavigate();
   const location = useLocation();
-  const {jwtToken, name, companyName, question} = location.state;
+  const {jwtToken, name, companyName, question, candname} = location.state;
   const { roomCode } = useParams();
 
   console.log(name, companyName, question, 'question')
