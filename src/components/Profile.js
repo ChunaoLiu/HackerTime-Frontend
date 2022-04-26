@@ -1,4 +1,3 @@
-import logo from '../logo.svg';
 import pPic from '../profile.svg';
 import '../App.css';
 import { Button, Icon, Modal, TextArea, Checkbox, Form } from 'semantic-ui-react'
@@ -16,11 +15,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import Divider from '@mui/material/Divider';
-import ListSubheader from '@mui/material/ListSubheader';
 
 function Profile() {
   const location = useLocation()
@@ -93,6 +89,7 @@ function Profile() {
   }
 
   const onListItemClick = (e) => {
+    
     alert(`Question:\n${e.question}\n\nCode:\n${e.code}\nOutput:\n`);
   }
 
