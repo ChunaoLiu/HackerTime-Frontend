@@ -4,12 +4,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import logo from '../logo.svg';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Checkbox, Form } from 'semantic-ui-react'
-import { useNavigate} from 'react-router-dom';
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useRef, useState, useEffect, useContext, useCallback } from "react";
 import axios from 'axios';
 
-export default function Topbar() {
+export default function Topbar(props) {
+  const location = useLocation()
+
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -17,9 +19,17 @@ export default function Topbar() {
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [jwtToken, setJwtToken] = useState('')
-  
+  const [question, setQuestion] = useState('')
+  const [code, setCode] = useState('')
+  const [output, setOutput] = useState('')
   useEffect(() => {
-  }, [email, password])
+    setJwtToken(location.state.jwtToken);
+    setName(location.state.name);
+    setCompanyName(location.state.companyName);
+    setEmail(location.state.email);
+    setPassword(location.state.password);
+    setQuestion(location.state.question);
+  }, [location])
 
   const copy = async () => {
     await navigator.clipboard.writeText('http://hackertime/v1/hostroom');
@@ -27,37 +37,37 @@ export default function Topbar() {
   }
   const routeChange2 = (e) => {
     let path = "/HackerTime-Frontend/profile";
-    // we need email
-    // navigate(path, {state:{name: name, companyName: companyName, jwtToken: jwtToken}});
+
     console.log('route change')
-    navigate(path, {state:{jwtToken: e.data.jwtToken, name: e.data.name, companyName: e.data.companyName}});
+    navigate(path, { state: { jwtToken: e.data.jwtToken, name: e.data.name, companyName: e.data.companyName } });
   }
-  const endInterview = async (event) => {
+  const test = async () => {
+    console.log("🤩 Q:" + question);
+    console.log("🤩" + props.code);
+    console.log("🤩" + props.output);
+  }
+  const endInterview = useCallback(() => {
+    // make post request and save response
+    axios.post('http://localhost:8080/v1/end-meeting', {
+      "question": question,
+      "code": props.code
+    }, {
+      headers: {
+        "Authorization": `Bearer ${jwtToken}`
+      }
+    }).then((response) => {
+      // route change and pass in response
+      routeChange2(
+        {
+          data: {
+            jwtToken: jwtToken,
+            name: name,
+            companyName: companyName
+          }
+        })
+    })
+  }, [jwtToken, name, companyName, props.code, props.output])
 
-    console.log("hi: " + email)
-    // event.preventDefault();
-    // try {
-    //   const response = await axios.post('http://hackertime/v1/end-meeting', {
-    //     email: email,
-    //     password: password
-    //   });
-    //   console.log(JSON.stringify(response?.data));
-    //   const accessToken = response?.data?.accessToken;
-    //   const roles = response?.data?.roles;
-    //   // setAuth({ email, password, roles, accessToken });
-      
-    //   setSuccess(true);
-      
-    //   setEmail(response?.data?.email)
-    //   setName(response?.data?.name)
-    //   setCompanyName(response?.data?.companyName)
-    //   setJwtToken(response?.data?.jwtToken)
-
-    //   // axios.defaults.headers.common = {'Authorization': `Bearer ${jwtToken}`}
-    //   //axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
-
-    //   routeChange3(response);
-    }
   return (
     // <img src={logo} className="App-logo" alt="logo" />
     <Box sx={{ flexGrow: 1 }}>
@@ -70,6 +80,7 @@ export default function Topbar() {
           {/* axios.get('localost:8080/'); */}
           <Button color="inherit" onClick={copy}>http://hackertime/v1/hostroom</Button>
           <Button color="inherit">Sukriti Rai</Button>
+          <Button color="inherit" onClick={test}>Test</Button>
           <Button color="inherit" onClick={endInterview}>End Interview</Button>
         </Toolbar>
       </AppBar>
