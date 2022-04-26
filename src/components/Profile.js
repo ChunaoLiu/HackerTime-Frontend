@@ -70,6 +70,7 @@ function Profile() {
           ])
         } else {
           setReports(res.data.reports)
+          //console.log(JSON.stringify(res.data.reports));
         }
       })
   }
@@ -87,7 +88,7 @@ function Profile() {
     axios.post('http://localhost:8080/hostroom', { "question": question })
       .then(res => {
         navigator(`/HackerTime-Frontend/interview/${res.data.roomCode}`,
-        {state:{jwtToken: jwtToken, name: name, candname: candname, companyName: companyName, question: question}})
+          { state: { jwtToken: jwtToken, name: name, candname: candname, companyName: companyName, question: question } })
       }
       )
   }
@@ -167,20 +168,20 @@ function Profile() {
         <p align='center'>{name}<br></br>Company: {companyName}</p>
 
         <Divider>
-        <List
-          sx={{
-            width: '100%',
-            maxWidth: 500,
-            bgcolor: 'background.paper',
-            margin:"dense",
-            position: 'relative',
-            overflow: 'auto',
-            maxHeight: 300,
-            '& ul': { padding: 0 },
-          }}
-        >
-          {reportList}
-        </List>
+          <List
+            sx={{
+              width: '100%',
+              maxWidth: 500,
+              bgcolor: 'background.paper',
+              margin: "dense",
+              position: 'relative',
+              overflow: 'auto',
+              maxHeight: 300,
+              '& ul': { padding: 0 },
+            }}
+          >
+            {reportList}
+          </List>
         </Divider>
         <>
           <Button onClick={() => setFirstOpen(true)}>Start An Interview</Button>
@@ -197,6 +198,12 @@ function Profile() {
               </div>
               <Modal.Description>
                 <Form>
+                  <TextArea
+                    placeholder='Please provide the name of the interviewee...'
+                    style={{ minWidth: 600, maxHeight: 40 }}
+                    value={candname}
+                    onChange={handleChangeCandname}
+                  />
                   <TextArea
                     placeholder='Please provide the coding question...'
                     style={{ minWidth: 600, minHeight: 500 }}

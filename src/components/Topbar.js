@@ -22,6 +22,7 @@ export default function Topbar(props) {
   const [question, setQuestion] = useState('')
   const [code, setCode] = useState('')
   const [output, setOutput] = useState('')
+  const [candname, setCandname] = useState('')
   useEffect(() => {
     setJwtToken(location.state.jwtToken);
     setName(location.state.name);
@@ -29,6 +30,7 @@ export default function Topbar(props) {
     setEmail(location.state.email);
     setPassword(location.state.password);
     setQuestion(location.state.question);
+    setCandname(location.state.candname);
   }, [location])
 
   const copy = async () => {
@@ -48,14 +50,17 @@ export default function Topbar(props) {
   }
   const endInterview = useCallback(() => {
     // make post request and save response
+    console.log("CAND NAME🤩: " + candname);
     axios.post('http://localhost:8080/v1/end-meeting', {
       "question": question,
-      "code": props.code
+      "code": props.code,
+      "intervieweeName": candname
     }, {
       headers: {
         "Authorization": `Bearer ${jwtToken}`
       }
     }).then((response) => {
+      console.log("CHeckkkk " + response?.data?.question +  response?.data?.IntervieweeName)
       // route change and pass in response
       routeChange2(
         {
@@ -66,7 +71,7 @@ export default function Topbar(props) {
           }
         })
     })
-  }, [jwtToken, name, companyName, props.code, props.output])
+  }, [jwtToken, name, companyName, candname, props.code, props.output])
 
   return (
     // <img src={logo} className="App-logo" alt="logo" />

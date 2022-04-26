@@ -28,7 +28,7 @@ export function Main() {
   return (
       
     <div className="Main">
-      <Topbar output = {curOutput} code={curCode} IntervieweeName={"Reesh"}/>  
+      <Topbar output = {curOutput} code={curCode} IntervieweeName={candname}/>  
       <p></p>
       <p>.</p>
       <p>.</p>  
