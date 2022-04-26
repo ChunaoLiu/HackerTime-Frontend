@@ -204,8 +204,9 @@ function Profile() {
           <Modal.Description>
             <Form>
               <TextArea
+                id="text1"
                 placeholder='Please provide the name of the interviewee...'
-                style={{ minWidth: 600, maxHeight: 40 }}
+                style={{ minWidth: 600, maxHeight: 40, overflow: 'hidden' }}
                 value={candname}
                 onChange={handleChangeCandname}
               />
