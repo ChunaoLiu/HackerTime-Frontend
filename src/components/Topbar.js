@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import logo from '../logo.svg';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Checkbox, Form } from 'semantic-ui-react'
 import React, { useRef, useState, useEffect, useContext, useCallback } from "react";
 import axios from 'axios';
@@ -23,7 +23,6 @@ export default function Topbar(props) {
   const [code, setCode] = useState('')
   const [output, setOutput] = useState('')
   const [candname, setCandname] = useState('')
-  const {roomcode} = useParams();
   useEffect(() => {
     setJwtToken(location.state.jwtToken);
     setName(location.state.name);
@@ -35,7 +34,7 @@ export default function Topbar(props) {
   }, [location])
 
   const copy = async () => {
-    await navigator.clipboard.writeText('http://localhost:3000/HackerTime-Frontend/' + roomcode);
+    await navigator.clipboard.writeText('http://hackertime/v1/hostroom');
     alert('Link copied ✅');
   }
   const routeChange2 = (e) => {
@@ -51,17 +50,18 @@ export default function Topbar(props) {
   }
   const endInterview = useCallback(() => {
     // make post request and save response
-    console.log("CANDidate NAME🤩 sent: " + candname + "");
+    console.log("Room code:" +  props.tempCode + "");
     axios.post('http://localhost:8080/v1/end-meeting', {
       "question": question,
       "code": props.code,
-      "intervieweeName": candname
+      "intervieweeName": candname,
+      "roomCode": props.tempCode
     }, {
       headers: {
         "Authorization": `Bearer ${jwtToken}`
       }
     }).then((response) => {
-      console.log("QUESTION:  " + response?.data?.question +  " CAND Name: " + response?.data?.IntervieweeName)
+      console.log("QUESTION:  " + response?.data?.question +  " CAND Name: " + response?.data?.IntervieweeName + " Room code: " + response?.data?.roomCode);
       // route change and pass in response
       routeChange2(
         {
@@ -72,7 +72,7 @@ export default function Topbar(props) {
           }
         })
     })
-  }, [jwtToken, name, companyName, candname, props.code, props.output])
+  }, [jwtToken, name, companyName, candname, props.code, props.output, props.tempCode])
 
   return (
     // <img src={logo} className="App-logo" alt="logo" />
