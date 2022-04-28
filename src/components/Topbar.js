@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import logo from '../logo.svg';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Checkbox, Form } from 'semantic-ui-react'
 import React, { useRef, useState, useEffect, useContext, useCallback } from "react";
 import axios from 'axios';
@@ -23,6 +23,7 @@ export default function Topbar(props) {
   const [code, setCode] = useState('')
   const [output, setOutput] = useState('')
   const [candname, setCandname] = useState('')
+  const {roomcode} = useParams();
   useEffect(() => {
     setJwtToken(location.state.jwtToken);
     setName(location.state.name);
@@ -34,7 +35,7 @@ export default function Topbar(props) {
   }, [location])
 
   const copy = async () => {
-    await navigator.clipboard.writeText('http://hackertime/v1/hostroom');
+    await navigator.clipboard.writeText('http://localhost:3000/HackerTime-Frontend/' + roomcode);
     alert('Link copied ✅');
   }
   const routeChange2 = (e) => {
