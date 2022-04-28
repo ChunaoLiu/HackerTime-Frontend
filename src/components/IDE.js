@@ -20,6 +20,7 @@ export default class IDE extends Component {
         result: 'Submit Code to See Result',
         lang: 'cpp',
         sock: {},
+        resultSock: {},
         roomCode: 0
     }
 
@@ -106,7 +107,6 @@ export default class IDE extends Component {
         stompClient.connect({}, function connectCallback(frame) {
             //console.log('Connected: ' + frame);
             
-            // TODO: change the route
             stompClient.subscribe('/topic/'+ this.state.roomCode, function (greeting) {
                 this.refresh(greeting.body)
                 //console.log(greeting)
@@ -116,7 +116,22 @@ export default class IDE extends Component {
             console.log(error);
         }
         );
-        
+
+        var secondStompClient = Stomp.over(socket);
+        this.setState({resultSock: secondStompClient})
+        secondStompClient.connect({}, function connectCallback(frame) {
+            //console.log('Connected: ' + frame);
+            // TODO: add a new route
+            secondStompClient.subscribe('/topic/'+ this.state.roomCode, function (greeting) {
+                // TODO: refresh the new result
+
+                //console.log(greeting)
+            }.bind(this));
+        }.bind(this),
+        function errorCallBack (error) {
+            console.log(error);
+        }
+        );
     }
     editorDidMount = (e) => {
         console.log("EDITOR MOUNTED")
