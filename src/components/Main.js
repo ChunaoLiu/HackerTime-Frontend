@@ -30,7 +30,7 @@ export function Main() {
   return (
       
     <div className="Main">
-      <Topbar output = {curOutput} code={curCode} IntervieweeName={candname}/>  
+      <Topbar output = {curOutput} code={curCode} tempCode={roomcode} IntervieweeName={candname}/>  
       <p></p>
       <p>.</p>
       <p>.</p>  
