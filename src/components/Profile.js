@@ -29,6 +29,10 @@ function Profile() {
   const [email, setEmail] = useState();
   const [jwtToken, setJwtToken] = useState();
   const [question, setQuestion] = useState('');
+  const [candname, setCandname] = useState('');
+  // setJwtToken(location.state.jwtToken);
+  // setPassword(location.state.jwtToken);
+  // setJwtToken(location.state.jwtToken);
   const [reports, setReports] = useState([]);
 
   useEffect(() => {
@@ -62,6 +66,7 @@ function Profile() {
           ])
         } else {
           setReports(res.data.reports)
+          //console.log(JSON.stringify(res.data.reports));
         }
       })
   }
@@ -79,13 +84,16 @@ function Profile() {
     axios.post('http://localhost:8080/hostroom', { "question": question })
       .then(res => {
         navigator(`/HackerTime-Frontend/interview/${res.data.roomCode}`,
-          { state: { jwtToken: jwtToken, name: name, companyName: companyName, question: question } })
+          { state: { jwtToken: jwtToken, name: name, candname: candname, companyName: companyName, question: question } })
       }
       )
   }
 
   const handleChangeQuestion = (e) => {
     setQuestion(e.target.value);
+  }
+  const handleChangeCandname = (e) => {
+    setCandname(e.target.value);
   }
 
   const onListItemClick = (e) => {
@@ -157,20 +165,20 @@ function Profile() {
         <p align='center'>{name}<br></br>Company: {companyName}</p>
 
         <Divider>
-        <List
-          sx={{
-            width: '100%',
-            maxWidth: 500,
-            bgcolor: 'background.paper',
-            margin:"dense",
-            position: 'relative',
-            overflow: 'auto',
-            maxHeight: 300,
-            '& ul': { padding: 0 },
-          }}
-        >
-          {reportList}
-        </List>
+          <List
+            sx={{
+              width: '100%',
+              maxWidth: 500,
+              bgcolor: 'background.paper',
+              margin: "dense",
+              position: 'relative',
+              overflow: 'auto',
+              maxHeight: 300,
+              '& ul': { padding: 0 },
+            }}
+          >
+            {reportList}
+          </List>
         </Divider>
         <>
           <Button onClick={() => setFirstOpen(true)}>Start An Interview</Button>
@@ -187,6 +195,13 @@ function Profile() {
               </div>
               <Modal.Description>
                 <Form>
+                  <TextArea
+                    id="text1"
+                    placeholder='Please provide the name of the interviewee...'
+                    style={{ minWidth: 600, maxHeight: 40 , overflow: 'hidden'}}
+                    value={candname}
+                    onChange={handleChangeCandname}
+                  />
                   <TextArea
                     placeholder='Please provide the coding question...'
                     style={{ minWidth: 600, minHeight: 500 }}
