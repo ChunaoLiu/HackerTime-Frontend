@@ -14,7 +14,7 @@ import Editor from './Editor'
 export function Main() {
   const navigate = useNavigate();
   const location = useLocation();
-  const {jwtToken, name, companyName, question, candname} = location.state;
+  // const {jwtToken, name, companyName, question, candname} = location.state;
   const { roomCode } = useParams();
 
   const [curCode, setCurCode] = React.useState('');
@@ -28,12 +28,12 @@ export function Main() {
   return (
       
     <div className="Main">
-      <Topbar output = {curOutput} code={curCode} IntervieweeName={candname}/>  
+      // Make the topbar compatible with both interviewer and interviewee
       <p></p>
       <p>.</p>
       <p>.</p>  
       <div className='d-flex '>
-        <QuestionBar question={question}/>
+        <QuestionBar question="{question}"/>
         <IDE setCurOutput = {setCurOutput} setCurCode = {setCurCode}/>
         <Videochat enabled={true}/>
       </div>
