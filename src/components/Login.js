@@ -64,6 +64,19 @@ export function Login() {
   // you need to update the value of the info
 
   const routeChange3 = (e) => {
+    if(!checked) {
+      toastr.options = {
+        positionclassName : 'toast-top-right',
+        hideDuration: 300,
+        timeOut: 6000,
+        newestOnTop: false,
+        fontSize: "200px",
+      }
+      toastr.options.newestOnTop = false;
+      toastr.clear()
+      toastr.warning('Please allow your camera and mircrophone first');
+      return;
+    }
     let path = "/HackerTime-Frontend/profile";
     console.log('route change');
     navigate(path, { state: { jwtToken: e.data.jwtToken, name: e.data.name, companyName: e.data.companyName} });
