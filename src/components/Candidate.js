@@ -41,7 +41,7 @@ export function Candidate (){
       return;
     }
     
-    navigator(`/HackerTime-Frontend/interview/${roomCode}`,
+    navigate(`/HackerTime-Frontend/interview/${roomCode}`,
           { state: { jwtToken: '', name: '', candname: '', companyName: '', question: '', identity: false } })
       
   };

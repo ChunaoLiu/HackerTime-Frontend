@@ -14,6 +14,8 @@ import Editor from './Editor'
 export function Main() {
   const navigate = useNavigate();
   const location = useLocation();
+  
+  // TODO: question need to be fetched here
   const {jwtToken, name, companyName, question, candname} = location.state;
   const { roomCode } = useParams();
 
@@ -35,7 +37,7 @@ export function Main() {
       <p>.</p>  
       <div className='d-flex '>
         <QuestionBar question={question}/>
-        <IDE setCurOutput = {setCurOutput} setCurCode = {setCurCode}/>
+        <IDE setCurOutput = {setCurOutput} setCurCode = {setCurCode} roomCode={roomCode}/>
         <Videochat enabled={true}/>
       </div>
     </div>
