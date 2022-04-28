@@ -37,7 +37,7 @@ export function Main() {
       <p>.</p>  
       <div className='d-flex '>
         <QuestionBar question={question}/>
-        <IDE setCurOutput = {setCurOutput} setCurCode = {setCurCode} roomCode={roomCode}/>
+        <IDE setCurOutput = {setCurOutput} setCurCode = {setCurCode} tempCode={roomCode}/>
         <Videochat enabled={true}/>
       </div>
     </div>

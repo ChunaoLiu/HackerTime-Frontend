@@ -20,12 +20,12 @@ export default class IDE extends Component {
         result: 'Submit Code to See Result',
         lang: 'cpp',
         sock: {},
-        roomCode: this.props.roomCode
+        roomCode: 0
     }
 
 
     componentDidMount() {
-        console.log(this.state.roomCode);
+        this.state.roomCode = this.props.tempCode
         editorwidth = document.getElementById('code');
         editorwidthorg = editorwidth.offsetWidth;
         console.log(editorwidthorg);
