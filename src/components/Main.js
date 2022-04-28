@@ -19,6 +19,7 @@ export function Main() {
 
   const [curCode, setCurCode] = React.useState('');
   const [curOutput, setCurOutput] = React.useState('');
+
   console.log(roomCode, 'roomCode')
 
   const routeChange = () =>{ 

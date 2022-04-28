@@ -23,6 +23,7 @@ import {
   
 import SignUp from './components/SignUp';
 import Profile from './components/Profile';
+import Candidate from './components/Candidate';
 
 // const defaultLanguage = <code>${"javascript" || Object.keys(languages).sort()[0]}</code>;
 // const defaultTheme = <code>${"atomOneDark" || Object.keys(themes).sort()[0]}</code>;
@@ -41,10 +42,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/HackerTime-Frontend/interview/" element={<Main />} />
+        <Route path="/HackerTime-Frontend/interview/:roomcode" element={<Main />} />
         <Route path="/HackerTime-Frontend/" element={<Login />} />
         <Route path="/HackerTime-Frontend/signup" element={<SignUp />} />
         <Route path="/HackerTime-Frontend/profile" element={<Profile />} />
+        <Route path="/HackerTime-Frontend/:roomcode" element={<Candidate />} />
       </Routes>
     </BrowserRouter>
     
