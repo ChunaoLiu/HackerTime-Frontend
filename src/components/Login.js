@@ -134,7 +134,11 @@ export function Login() {
 
   return (
     <div className="App">
+      
       <Form.Field align='right'>
+        <p align='right'>
+            No account?
+          </p>
         <Button type='submit' onClick={routeChange2}>Sign-up</Button>
       </Form.Field>
       <header className="App-header">
@@ -156,7 +160,7 @@ export function Login() {
           <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
           <Button type='submit'>Login</Button>
         </Form>
-        <br></br>
+        {/* <br></br>
         <p align='left'>
           Candidate Login
         </p>
@@ -168,7 +172,7 @@ export function Login() {
             <input placeholder='Code' />
           </Form.Field>
           <Button type='submit' onClick={routeChange}>Start Interview</Button>
-        </Form>
+        </Form> */}
 
         <Form.Field>
           <Checkbox onClick={fn_check} label='Allow Camera and Microphone access' />

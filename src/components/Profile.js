@@ -16,6 +16,8 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import WorkIcon from '@mui/icons-material/Work';
+import logo from '../logo.svg';
+import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 
 function Profile() {
@@ -102,7 +104,7 @@ function Profile() {
   }
 
   const onListItemClick = (e) => {
-    
+
     alert(`Question:\n${e.question}\n\nCode:\n${e.code}\nOutput:\n`);
   }
   const changeDate = (e) => {
@@ -115,7 +117,7 @@ function Profile() {
   }
 
   const reportList = reports.map((r) =>
-    <ListItem onLoad = {() => onListLoad(r)}  onClick={() => onListItemClick(r)}>
+    <ListItem onLoad={() => onListLoad(r)} onClick={() => onListItemClick(r)}>
       <ListItemAvatar>
         <Avatar>
           <WorkIcon />
@@ -127,6 +129,7 @@ function Profile() {
 
   return (
     <div className="App">
+      <img src={logo} className="App-logo" alt="logo" width="75" />
       <Button align='right' variant="outlined" onClick={handleClickOpen}>
         Change Password
       </Button>
@@ -172,11 +175,11 @@ function Profile() {
       <header className="App-header">
 
         <img src={pPic} className="Profile-Pic" alt="pPic" width="100" />
-        <p >
-
-        </p>
+        
         <p align='center'>{name}<br></br>Company: {companyName}</p>
-
+        <Typography sx={{ mt: 4, mb: 2 }} variant="h5" margin="dense" component="div">
+            Interview Reports
+          </Typography>
         <Divider>
           <List
             sx={{
@@ -211,7 +214,7 @@ function Profile() {
                   <TextArea
                     id="text1"
                     placeholder='Please provide the name of the interviewee...'
-                    style={{ minWidth: 600, maxHeight: 40 , overflow: 'hidden'}}
+                    style={{ minWidth: 600, maxHeight: 40, overflow: 'hidden' }}
                     value={candname}
                     onChange={handleChangeCandname}
                   />
