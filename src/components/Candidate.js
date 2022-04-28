@@ -1,9 +1,9 @@
 import logo from '../logo.svg';
 import '../App.css';
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import toastr from 'toastr'
 import 'toastr/build/toastr.min.css'
 // import Box from '@mui/material/Box';
@@ -12,7 +12,7 @@ import 'toastr/build/toastr.min.css'
 
 export function Candidate (){
   const navigate = useNavigate();
-  
+  const { roomcode } = useParams();
   const [state, setState] = useState({
     name: ''
   });
@@ -24,7 +24,9 @@ export function Candidate (){
     navigate(path);
   }
 
-
+  useEffect(() => {
+    console.log(roomcode)
+  })
   const handleOnSubmit = (event) => {
     event.preventDefault()
     if(!checked) {
@@ -41,10 +43,9 @@ export function Candidate (){
       return;
     }
     
-    let path = "/HackerTime-Frontend/interview"; 
-    console.log(event.target.name.value);
-    console.log("HEY");
-    navigate(path, event.target.name.value);
+    navigate(`/HackerTime-Frontend/interview/${roomcode}`,
+          { state: { jwtToken: '', name: '', candname: '', companyName: '', question: '', identity: false } })
+      
   };
 
   const handleInputChange = (event) => {

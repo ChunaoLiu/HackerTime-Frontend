@@ -19,11 +19,15 @@ export default class IDE extends Component {
         code: code.cpp,
         result: 'Submit Code to See Result',
         lang: 'cpp',
-        sock: {}
+        sock: {},
+        resultSock: {},
+        roomCode: 0
     }
 
 
     componentDidMount() {
+        this.state.roomCode = this.props.tempCode
+        console.log(this.state.roomCode)
         editorwidth = document.getElementById('code');
         editorwidthorg = editorwidth.offsetWidth;
         console.log(editorwidthorg);
@@ -39,7 +43,6 @@ export default class IDE extends Component {
         axios.post(`http://localhost:8080/getCode`,this.state)
             .then(res=>{
                 console.log(res.data)
-                const data = res.data
                 console.log(res.data.err)
                 if(res.data.stderr){
                     // Error in user code
@@ -47,7 +50,6 @@ export default class IDE extends Component {
                     this.props.setCurOutput(res.data.stderr);
                 }
                 else{
-                    console.log("hi");
                     this.onResultChangeHandler(res.data.stdout);
                     this.props.setCurOutput(res.data.stdout);
                 }
@@ -68,7 +70,9 @@ export default class IDE extends Component {
         // to socket
         // return value
         //console.log(this.state.sock)
-        this.state.sock.send("/app/001", {}, this.state.code)
+
+        // TODO: change the route //
+        this.state.sock.send("/app/" + this.state.roomCode, {}, this.state.code)
     }
 
     onResultChangeHandler = (newResult, e) => {
@@ -92,7 +96,7 @@ export default class IDE extends Component {
     connect() {
         //const WebSocketClient = require('websocket').client;
         
-        
+        // TODO: change the route //
         var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
         //console.log(socket)
         
@@ -103,7 +107,7 @@ export default class IDE extends Component {
         stompClient.connect({}, function connectCallback(frame) {
             //console.log('Connected: ' + frame);
             
-            stompClient.subscribe('/topic/001', function (greeting) {
+            stompClient.subscribe('/topic/'+ this.state.roomCode, function (greeting) {
                 this.refresh(greeting.body)
                 //console.log(greeting)
             }.bind(this));
@@ -112,7 +116,22 @@ export default class IDE extends Component {
             console.log(error);
         }
         );
-        
+
+        var secondStompClient = Stomp.over(socket);
+        this.setState({resultSock: secondStompClient})
+        secondStompClient.connect({}, function connectCallback(frame) {
+            //console.log('Connected: ' + frame);
+            // TODO: add a new route
+            secondStompClient.subscribe('/topic/'+ this.state.roomCode, function (greeting) {
+                // TODO: refresh the new result
+
+                //console.log(greeting)
+            }.bind(this));
+        }.bind(this),
+        function errorCallBack (error) {
+            console.log(error);
+        }
+        );
     }
     editorDidMount = (e) => {
         console.log("EDITOR MOUNTED")
@@ -157,7 +176,6 @@ export default class IDE extends Component {
                             <Grid container>
                                 <Grid item xs={12} sm={9} md={12} id="code" className="">
                                 {/*<div type="text" id="code" ref={wrapperRef}></div> */}
-                                
                                     <div type="text" id="code">
                                         <Editor
                                             height="50vh"

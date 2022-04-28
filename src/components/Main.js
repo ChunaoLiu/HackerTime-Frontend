@@ -14,12 +14,14 @@ import Editor from './Editor'
 export function Main() {
   const navigate = useNavigate();
   const location = useLocation();
-  // const {jwtToken, name, companyName, question, candname} = location.state;
-  const { roomCode } = useParams();
+  
+  // TODO: question need to be fetched here
+  const {jwtToken, name, companyName, question, candname} = location.state;
+  const { roomcode } = useParams();
 
   const [curCode, setCurCode] = React.useState('');
   const [curOutput, setCurOutput] = React.useState('');
-  console.log(roomCode, 'roomCode')
+
 
   const routeChange = () =>{ 
     let path = "/HackerTime-Frontend/interview"; 
@@ -28,13 +30,13 @@ export function Main() {
   return (
       
     <div className="Main">
-      // Make the topbar compatible with both interviewer and interviewee
+      <Topbar output = {curOutput} code={curCode} IntervieweeName={candname}/>  
       <p></p>
       <p>.</p>
       <p>.</p>  
       <div className='d-flex '>
-        <QuestionBar question="{question}"/>
-        <IDE setCurOutput = {setCurOutput} setCurCode = {setCurCode}/>
+        <QuestionBar question={question}/>
+        <IDE setCurOutput = {setCurOutput} setCurCode = {setCurCode} tempCode={roomcode}/>
         <Videochat enabled={true}/>
       </div>
     </div>
