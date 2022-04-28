@@ -88,7 +88,7 @@ function Profile() {
     axios.post('http://localhost:8080/hostroom', { "question": question })
       .then(res => {
         navigator(`/HackerTime-Frontend/interview/${res.data.roomCode}`,
-          { state: { jwtToken: jwtToken, name: name, candname: candname, companyName: companyName, question: question } })
+          { state: { jwtToken: jwtToken, name: name, candname: candname, companyName: companyName, question: question, identity: true } })
       }
       )
   }

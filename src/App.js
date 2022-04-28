@@ -41,7 +41,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/HackerTime-Frontend/interview/:roomCode" element={<Main />} />
+        <Route path="/HackerTime-Frontend/interview/" element={<Main />} />
         <Route path="/HackerTime-Frontend/" element={<Login />} />
         <Route path="/HackerTime-Frontend/signup" element={<SignUp />} />
         <Route path="/HackerTime-Frontend/profile" element={<Profile />} />
