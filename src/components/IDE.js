@@ -26,6 +26,7 @@ export default class IDE extends Component {
 
     componentDidMount() {
         this.state.roomCode = this.props.tempCode
+        console.log(this.state.roomCode)
         editorwidth = document.getElementById('code');
         editorwidthorg = editorwidth.offsetWidth;
         console.log(editorwidthorg);
@@ -70,7 +71,7 @@ export default class IDE extends Component {
         //console.log(this.state.sock)
 
         // TODO: change the route //
-        this.state.sock.send("/app/${roomCode}", {}, this.state.code)
+        this.state.sock.send("/app/" + this.state.roomCode, {}, this.state.code)
     }
 
     onResultChangeHandler = (newResult, e) => {
@@ -106,7 +107,7 @@ export default class IDE extends Component {
             //console.log('Connected: ' + frame);
             
             // TODO: change the route
-            stompClient.subscribe('/topic/001', function (greeting) {
+            stompClient.subscribe('/topic/'+ this.state.roomCode, function (greeting) {
                 this.refresh(greeting.body)
                 //console.log(greeting)
             }.bind(this));

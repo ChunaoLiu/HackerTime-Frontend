@@ -17,12 +17,11 @@ export function Main() {
   
   // TODO: question need to be fetched here
   const {jwtToken, name, companyName, question, candname} = location.state;
-  const { roomCode } = useParams();
+  const { roomcode } = useParams();
 
   const [curCode, setCurCode] = React.useState('');
   const [curOutput, setCurOutput] = React.useState('');
 
-  console.log(roomCode, 'roomCode')
 
   const routeChange = () =>{ 
     let path = "/HackerTime-Frontend/interview"; 
@@ -37,7 +36,7 @@ export function Main() {
       <p>.</p>  
       <div className='d-flex '>
         <QuestionBar question={question}/>
-        <IDE setCurOutput = {setCurOutput} setCurCode = {setCurCode} tempCode={roomCode}/>
+        <IDE setCurOutput = {setCurOutput} setCurCode = {setCurCode} tempCode={roomcode}/>
         <Videochat enabled={true}/>
       </div>
     </div>
