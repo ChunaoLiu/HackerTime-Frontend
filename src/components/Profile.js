@@ -1,4 +1,3 @@
-import logo from '../logo.svg';
 import pPic from '../profile.svg';
 import '../App.css';
 import { Button, Icon, Modal, TextArea, Checkbox, Form } from 'semantic-ui-react'
@@ -16,11 +15,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import logo from '../logo.svg';
+import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import ListSubheader from '@mui/material/ListSubheader';
 
 function Profile() {
   const location = useLocation()
@@ -34,6 +32,7 @@ function Profile() {
   const [jwtToken, setJwtToken] = useState();
   const [question, setQuestion] = useState('');
   const [candname, setCandname] = useState('');
+  const date = new Date();
   // setJwtToken(location.state.jwtToken);
   // setPassword(location.state.jwtToken);
   // setJwtToken(location.state.jwtToken);
@@ -70,7 +69,11 @@ function Profile() {
           ])
         } else {
           setReports(res.data.reports)
-          //console.log(JSON.stringify(res.data.reports));
+
+          // for (int i = 0; i < reports.length; i++) {
+          //   reports.get() = 0;
+          // }
+          console.log(JSON.stringify(res.data.reports));
         }
       })
   }
@@ -101,22 +104,32 @@ function Profile() {
   }
 
   const onListItemClick = (e) => {
+
     alert(`Question:\n${e.question}\n\nCode:\n${e.code}\nOutput:\n`);
+  }
+  const changeDate = (e) => {
+    console.log("date: " + e.toLocaleDateString());
+    return e.toString();
+  }
+  const onListLoad = (e) => {
+    // console.log("before: " + e.createdDate);
+    // e.createdDate = e.createdDate.toLocaleDateString('en-US');
   }
 
   const reportList = reports.map((r) =>
-    <ListItem onClick={() => onListItemClick(r)}>
+    <ListItem onLoad={() => onListLoad(r)} onClick={() => onListItemClick(r)}>
       <ListItemAvatar>
         <Avatar>
           <WorkIcon />
         </Avatar>
       </ListItemAvatar>
-      <ListItemText primary={r.intervieweeName} secondary={r.createdDate} />
+      <ListItemText primary={r.intervieweeName} secondary={(r.createdDate)} />
     </ListItem>
   );
 
   return (
     <div className="App">
+      <img src={logo} className="App-logo" alt="logo" width="75" />
       <Button align='right' variant="outlined" onClick={handleClickOpen}>
         Change Password
       </Button>
@@ -162,11 +175,11 @@ function Profile() {
       <header className="App-header">
 
         <img src={pPic} className="Profile-Pic" alt="pPic" width="100" />
-        <p >
-
-        </p>
+        
         <p align='center'>{name}<br></br>Company: {companyName}</p>
-
+        <Typography sx={{ mt: 4, mb: 2 }} variant="h5" margin="dense" component="div">
+            Interview Reports
+          </Typography>
         <Divider>
           <List
             sx={{
@@ -201,7 +214,7 @@ function Profile() {
                   <TextArea
                     id="text1"
                     placeholder='Please provide the name of the interviewee...'
-                    style={{ minWidth: 600, maxHeight: 40 , overflow: 'hidden'}}
+                    style={{ minWidth: 600, maxHeight: 40, overflow: 'hidden' }}
                     value={candname}
                     onChange={handleChangeCandname}
                   />
