@@ -30,6 +30,7 @@ function Profile() {
   const [jwtToken, setJwtToken] = useState();
   const [question, setQuestion] = useState('');
   const [candname, setCandname] = useState('');
+  const date = new Date();
   // setJwtToken(location.state.jwtToken);
   // setPassword(location.state.jwtToken);
   // setJwtToken(location.state.jwtToken);
@@ -66,7 +67,11 @@ function Profile() {
           ])
         } else {
           setReports(res.data.reports)
-          //console.log(JSON.stringify(res.data.reports));
+
+          // for (int i = 0; i < reports.length; i++) {
+          //   reports.get() = 0;
+          // }
+          console.log(JSON.stringify(res.data.reports));
         }
       })
   }
@@ -100,15 +105,23 @@ function Profile() {
     
     alert(`Question:\n${e.question}\n\nCode:\n${e.code}\nOutput:\n`);
   }
+  const changeDate = (e) => {
+    console.log("date: " + e.toLocaleDateString());
+    return e.toString();
+  }
+  const onListLoad = (e) => {
+    // console.log("before: " + e.createdDate);
+    // e.createdDate = e.createdDate.toLocaleDateString('en-US');
+  }
 
   const reportList = reports.map((r) =>
-    <ListItem onClick={() => onListItemClick(r)}>
+    <ListItem onLoad = {() => onListLoad(r)}  onClick={() => onListItemClick(r)}>
       <ListItemAvatar>
         <Avatar>
           <WorkIcon />
         </Avatar>
       </ListItemAvatar>
-      <ListItemText primary={r.intervieweeName} secondary={r.createdDate} />
+      <ListItemText primary={r.intervieweeName} secondary={(r.createdDate)} />
     </ListItem>
   );
 

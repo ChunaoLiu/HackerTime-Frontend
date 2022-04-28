@@ -50,7 +50,7 @@ export default function Topbar(props) {
   }
   const endInterview = useCallback(() => {
     // make post request and save response
-    console.log("CAND NAME🤩: " + candname);
+    console.log("CANDidate NAME🤩 sent: " + candname + "");
     axios.post('http://localhost:8080/v1/end-meeting', {
       "question": question,
       "code": props.code,
@@ -60,7 +60,7 @@ export default function Topbar(props) {
         "Authorization": `Bearer ${jwtToken}`
       }
     }).then((response) => {
-      console.log("CHeckkkk " + response?.data?.question +  response?.data?.IntervieweeName)
+      console.log("QUESTION:  " + response?.data?.question +  " CAND Name: " + response?.data?.IntervieweeName)
       // route change and pass in response
       routeChange2(
         {
@@ -85,7 +85,6 @@ export default function Topbar(props) {
           {/* axios.get('localost:8080/'); */}
           <Button color="inherit" onClick={copy}>http://hackertime/v1/hostroom</Button>
           <Button color="inherit">{candname}</Button>
-          <Button color="inherit" onClick={test}>Test</Button>
           <Button color="inherit" onClick={endInterview}>End Interview</Button>
         </Toolbar>
       </AppBar>
