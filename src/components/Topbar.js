@@ -84,7 +84,7 @@ export default function Topbar(props) {
           </Typography>
           {/* axios.get('localost:8080/'); */}
           <Button color="inherit" onClick={copy}>http://hackertime/v1/hostroom</Button>
-          <Button color="inherit">Sukriti Rai</Button>
+          <Button color="inherit">{candname}</Button>
           <Button color="inherit" onClick={test}>Test</Button>
           <Button color="inherit" onClick={endInterview}>End Interview</Button>
         </Toolbar>
