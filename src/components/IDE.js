@@ -157,6 +157,9 @@ export default class IDE extends Component {
         this.connect_to_compiler()
         
     }
+    sync() {
+
+    }
 
     sync() {
         axios.post(`http://localhost:8080/sync`,this.state.roomCode)
@@ -201,7 +204,11 @@ export default class IDE extends Component {
                                 <option value="java">Java</option>
                                 <option value="python">Python</option>
                             </select>
+<<<<<<< HEAD
                             <button classname="btn btn-primary mt-2" onClick={this.sync.bind(this)}>sync</button>
+=======
+                            <button className="btn btn-primary mt-2" onClick={this.sync}>sync</button>
+>>>>>>> parent of e790469 (Revert "added identity")
                             <p className="lead d-block my-0">Code your code here</p>
                             <Grid container>
                                 <Grid item xs={12} sm={9} md={12} id="code" className="">
