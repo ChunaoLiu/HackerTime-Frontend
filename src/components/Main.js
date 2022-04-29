@@ -16,18 +16,21 @@ export function Main() {
   const location = useLocation();
   
   // TODO: question need to be fetched here
-  const {jwtToken, name, companyName, question, candname, identity} = location.state;
+  const {jwtToken, name, companyName, question, candname} = location.state;
   const { roomcode } = useParams();
 
   const [curCode, setCurCode] = React.useState('');
   const [curOutput, setCurOutput] = React.useState('');
 
 
-  
+  const routeChange = () =>{ 
+    let path = "/HackerTime-Frontend/interview"; 
+    navigate(path);
+  }
   return (
       
     <div className="Main">
-      <Topbar output = {curOutput} code={curCode} tempCode={roomcode} IntervieweeName={candname} Identity={identity}/>  
+      <Topbar output = {curOutput} code={curCode} tempCode={roomcode} IntervieweeName={candname}/>  
       <p></p>
       <p>.</p>
       <p>.</p>  
