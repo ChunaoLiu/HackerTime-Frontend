@@ -99,7 +99,6 @@ export default class IDE extends Component {
     connect() {
         //const WebSocketClient = require('websocket').client;
         
-        // TODO: change the route //
         var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
         //console.log(socket)
         
@@ -159,6 +158,15 @@ export default class IDE extends Component {
         
     }
 
+    sync() {
+        axios.post(`http://localhost:8080/sync`,this.state.roomCode)
+            .then(res=>{
+                console.log(res.data);
+                this.refresh(res.data);
+            }
+            )
+    }
+
     onLangSelectHandler = (e) => {
         const lang = e.target.value
         this.setState({
@@ -193,6 +201,7 @@ export default class IDE extends Component {
                                 <option value="java">Java</option>
                                 <option value="python">Python</option>
                             </select>
+                            <button classname="btn btn-primary mt-2" onClick={this.sync.bind(this)}>sync</button>
                             <p className="lead d-block my-0">Code your code here</p>
                             <Grid container>
                                 <Grid item xs={12} sm={9} md={12} id="code" className="">
