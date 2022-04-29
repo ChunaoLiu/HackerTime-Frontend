@@ -158,6 +158,9 @@ export default class IDE extends Component {
         this.connect_to_compiler()
         
     }
+    sync() {
+
+    }
 
     onLangSelectHandler = (e) => {
         const lang = e.target.value
@@ -193,6 +196,7 @@ export default class IDE extends Component {
                                 <option value="java">Java</option>
                                 <option value="python">Python</option>
                             </select>
+                            <button className="btn btn-primary mt-2" onClick={this.sync}>sync</button>
                             <p className="lead d-block my-0">Code your code here</p>
                             <Grid container>
                                 <Grid item xs={12} sm={9} md={12} id="code" className="">

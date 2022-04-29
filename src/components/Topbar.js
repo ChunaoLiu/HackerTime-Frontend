@@ -23,6 +23,7 @@ export default function Topbar(props) {
   const [code, setCode] = useState('')
   const [output, setOutput] = useState('')
   const [candname, setCandname] = useState('')
+  const [identity, setIdentity] = useState('')
   const { roomcode } = useParams();
   useEffect(() => {
     setJwtToken(location.state.jwtToken);
@@ -32,6 +33,7 @@ export default function Topbar(props) {
     setPassword(location.state.password);
     setQuestion(location.state.question);
     setCandname(location.state.candname);
+    setIdentity(location.state.Identity);
   }, [location])
 
   const copy = async () => {
@@ -85,6 +87,17 @@ export default function Topbar(props) {
             HackerTime
           </Typography>
           {/* axios.get('localost:8080/'); */}
+          <div>
+          {identity ? (
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Interviewer
+          </Typography> ) : (
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Candidate
+          </Typography>
+          )}
+          </div>
+          
           <Button color="inherit" onClick={copy}>Click Here To Copy The Invitation Link</Button>
           <Button color="inherit">{candname}</Button>
           <Button color="inherit" onClick={endInterview}>End Interview</Button>
