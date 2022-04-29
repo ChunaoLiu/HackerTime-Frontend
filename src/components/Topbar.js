@@ -50,11 +50,14 @@ export default function Topbar(props) {
     console.log("🤩" + props.output);
   }
   const endInterview = useCallback(() => {
+    console.log("🤩" + props.code);
+    console.log("🤩" + props.output);
     // make post request and save response
     console.log("Room code:" +  props.tempCode + "");
     axios.post('http://localhost:8080/v1/end-meeting', {
       "question": question,
       "code": props.code,
+      "output": props.output,
       "intervieweeName": candname,
       "roomCode": props.tempCode
     }, {

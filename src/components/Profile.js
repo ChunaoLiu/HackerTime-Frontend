@@ -104,20 +104,14 @@ function Profile() {
   }
 
   const onListItemClick = (e) => {
-
-    alert(`Question:\n${e.question}\n\nCode:\n${e.code}\nOutput:\n`);
+    alert(`Question:\n${e.question}\n\nCode:\n${e.code}\nOutput:\n${e.output}`);
   }
   const changeDate = (e) => {
-    console.log("date: " + e.toLocaleDateString());
     return e.toString();
-  }
-  const onListLoad = (e) => {
-    // console.log("before: " + e.createdDate);
-    // e.createdDate = e.createdDate.toLocaleDateString('en-US');
   }
 
   const reportList = reports.map((r) =>
-    <ListItem onLoad={() => onListLoad(r)} onClick={() => onListItemClick(r)}>
+    <ListItem onClick={() => onListItemClick(r)}>
       <ListItemAvatar>
         <Avatar>
           <WorkIcon />
