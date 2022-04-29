@@ -6,12 +6,14 @@ import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { useNavigate, useParams } from 'react-router-dom';
 import toastr from 'toastr'
 import 'toastr/build/toastr.min.css'
+import axios from 'axios';
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
 
 
 export function Candidate (){
   const navigate = useNavigate();
+  const [question, setQuestion] = useState('');
   const { roomcode } = useParams();
   const [state, setState] = useState({
     name: ''
@@ -42,10 +44,26 @@ export function Candidate (){
       toastr.warning('Please allow your camera and mircrophone first');
       return;
     }
-    
-    navigate(`/HackerTime-Frontend/interview/${roomcode}`,
-          { state: { jwtToken: '', name: '', candname: '', companyName: '', question: '', identity: false } })
-      
+    console.log("Bruh roomcode is: " + roomcode)
+
+    var axios = require('axios');
+
+    var config = {
+      method: 'get',
+      url: 'http://localhost:8080/v1/get-question',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      params : {
+        "roomCode": "YStnaqPWIMWxGmGIuVrysblGzYHSjd"
+      }
+    };
+
+    axios(config)
+      .then(res => {
+        navigate(`/HackerTime-Frontend/interview/${roomcode}`,
+        { state: { jwtToken: '', name: '', candname: '', companyName: '', question: res.data, identity: false } })
+      })
   };
 
   const handleInputChange = (event) => {
