@@ -45,12 +45,8 @@ export function Candidate (){
       return;
     }
     console.log(roomcode)
-    axios.get('http://localhost:8080/v1/get-question', {roomCode: roomcode})
-      .then(res => {
-        navigator(`/HackerTime-Frontend/interview/${res.data.roomCode}`,
-        { state: { jwtToken: '', name: '', candname: '', companyName: '', question: question, identity: false } })
-      }
-      )
+    navigate(`/HackerTime-Frontend/interview/${roomcode}`,
+        { state: { jwtToken: '', name: '', candname: '', companyName: '', question: '', identity: false } })
   };
 
   const handleInputChange = (event) => {
