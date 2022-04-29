@@ -5,12 +5,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'semantic-ui-css/semantic.min.css'
 
+import { ContextProvider } from './Context';
+
 ReactDOM.render(
-  <React.StrictMode>
+  <ContextProvider>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </ContextProvider>,
+  document.getElementById('root'),
 );
+
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

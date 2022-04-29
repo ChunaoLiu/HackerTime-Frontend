@@ -1,26 +1,38 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef, useContext} from 'react'
 import "./Videochat.css";
 import Webcam from "react-webcam";
 import VideoOff from "../assets/video-off.svg";
 import VideoIcon from "../assets/video.svg";
 import MicOff from "../assets/mic-off.svg";
 import MicIcon from "../assets/mic.svg";
+import { io } from 'socket.io-client';
+import Peer from 'simple-peer';
+
+import { SocketContext } from '../Context';
 
 const Videochat = (props) => {
-    
-    const stream = true;
 
-    
-    const callAccepted = true;
-    const callEnded = true;
-    const userVideo = true; // ref
-    const myVideo   = true; // ref
+    console.log(SocketContext);
+    const { name, callAccepted, myVideo, userVideo, callEnded, stream, call } = useContext(SocketContext);
+    console.log(name);
 
-    const name = 'Guest';
-    const userName = 'You';
-
-    
-
+    // useEffect(() => {
+    //   // We first want permission to use the video and audio from user's camera and microphone
+    //   navigator.mediaDevices
+    //     .getUserMedia({ video: true, audio: true })
+    //     .then((currentStream) => {
+    //       setStream(currentStream);
+    //       // we immediately want to populate the video iframe with src of our screen
+    //       myVideo.current.srcObject = currentStream;
+    //     });
+  
+    //   // listen for a specific action
+    //   socket.on('me', (id) => setMe(id));
+  
+    //   socket.on('callUser', ({ from, name: callerName, signal }) => {
+    //     setCall({ isReceivingCall: true, from, name: callerName, signal });
+    //   });
+    // }, []);
 
     const [userVdoStatus, setUserVdoStatus] = useState(true);
     const [userMicStatus, setUserMicStatus] = useState(true);
@@ -88,31 +100,32 @@ const Videochat = (props) => {
               className="card  col-lg-12"
               id={callAccepted && !callEnded ? "video1" : "video3"}
             >
-            <div style={{ height: "2rem" }}>
-              <h3>{name}</h3>
-            </div>
-            <div className="video-avatar-container">
-              <video
-                playsInline
-                muted
-                onClick={fullScreen}
-                autoPlay
-                className="video-active"
-                style={{
-                  opacity: `${myVdoStatus ? "1" : "0"}`,
-                }}
-              />
-            {/* <Webcam 
-              // playsInline
-              // muted
-              // onClick={fullScreen}
-              // autoPlay
-              className="video-active"
-              style={{
-                opacity: `${userVdoStatus ? "1" : "0"}`,
-              }}
-            /> */}
-          </div>
+              <div style={{ height: "2rem" }}>
+                <h3>{name}</h3>
+              </div>
+              <div className="video-avatar-container">
+                <video
+                  playsInline
+                  muted
+                  onClick={fullScreen}
+                  ref={myVideo}
+                  autoPlay
+                  className="video-active"
+                  style={{
+                    opacity: `${myVdoStatus ? "1" : "0"}`,
+                  }}
+                />
+                {/* <Webcam 
+                  // playsInline
+                  // muted
+                  // onClick={fullScreen}
+                  // autoPlay
+                  className="video-active"
+                  style={{
+                    opacity: `${userVdoStatus ? "1" : "0"}`,
+                  }}
+                /> */}
+              </div>
 
           <div className="iconsDiv">
             <div className="icons" onClick={() => setMyVdoStatus(!myVdoStatus)} tabIndex="0">
@@ -128,12 +141,12 @@ const Videochat = (props) => {
                 setMyMicStatus(!myMicStatus)
               }}
               tabIndex="0"
-            >
-              {myMicStatus ? (
-                <img src={MicIcon} alt="mic on icon" />
-              ) : (
-                <img src={MicOff} alt="mic off icon" />
-              )}
+              >
+                {myMicStatus ? (
+                  <img src={MicIcon} alt="mic on icon" />
+                ) : (
+                  <img src={MicOff} alt="mic off icon" />
+                )}
             </div>      
 
             
@@ -148,10 +161,10 @@ const Videochat = (props) => {
       )}
       <div className='mt-5'/>
 
-      { userVideo && (
+      { callAccepted && !callEnded &&  (
         <div className="card col-lg-12" style={{ textAlign: "center" }} id="video2">
           <div style={{ height: "2rem" }}>
-            <h3>{userName}</h3>
+            <h3>{call.name || 'Name'}</h3>
           </div>
 
           <div className="video-avatar-container">
@@ -160,13 +173,14 @@ const Videochat = (props) => {
               // muted
               // onClick={fullScreen}
               // autoPlay
+              ref={userVideo}
               className="video-active"
               style={{
                 opacity: `${userVdoStatus ? "1" : "0"}`,
                 height : 'auto'
               }}
             />
-            
+            {/* <video playsInline ref={userVideo} autoPlay className={classes.video} /> */}
           </div>
           <div className="iconsDiv">
             <div className="icons" onClick={() => setUserVdoStatus(!userVdoStatus)} disabled tabIndex="0">
