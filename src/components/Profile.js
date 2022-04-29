@@ -20,12 +20,15 @@ import logo from '../logo.svg';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 
+import { SocketContext } from '../Context';
+
 function Profile() {
+  const { me, callAccepted, name, setName, initCall, callEnded, leaveCall, callUser } = useContext(SocketContext);
+
   const location = useLocation()
   const [firstOpen, setFirstOpen] = React.useState(false)
   const [secondOpen, setSecondOpen] = React.useState(false)
   const navigator = useNavigate();
-  const [name, setName] = useState();
   const [companyName, setCompanyName] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
@@ -87,11 +90,12 @@ function Profile() {
     setOpen(false);
   };
 
-  const handleFinish = () => {
-    axios.post('http://localhost:8080/hostroom', { "question": question })
-      .then(res => {
+  const handleFinish = async () => {
+    await axios.post('http://localhost:8080/hostroom', { "question": question })
+      .then(async res => {
+        await initCall();
         navigator(`/HackerTime-Frontend/interview/${res.data.roomCode}`,
-          { state: { jwtToken: jwtToken, name: name, candname: candname, companyName: companyName, question: question, identity: true } })
+          { state: { jwtToken: jwtToken, name: name, candname: candname, creater: me ,companyName: companyName, question: question, identity: true } })
       }
       )
   }

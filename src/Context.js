@@ -20,8 +20,8 @@ const ContextProvider = ({ children }) => {
   const userVideo = useRef();
   const connectionRef = useRef();
 
-  useEffect(() => {
-    // We first want permission to use the video and audio from user's camera and microphone
+
+  const initCall = () => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
@@ -36,7 +36,7 @@ const ContextProvider = ({ children }) => {
     socket.on('callUser', ({ from, name: callerName, signal }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
-  }, []);
+  }
 
   const answerCall = () => {
     setCallAccepted(true);
@@ -107,6 +107,7 @@ const ContextProvider = ({ children }) => {
         setName,
         callEnded,
         me,
+        initCall,
         callUser,
         leaveCall,
         answerCall,

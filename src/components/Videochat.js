@@ -13,7 +13,8 @@ import { SocketContext } from '../Context';
 const Videochat = (props) => {
 
     console.log(SocketContext);
-    const { name, callAccepted, myVideo, userVideo, callEnded, stream, call } = useContext(SocketContext);
+    const { callAccepted, myVideo, userVideo, callEnded, stream, call } = useContext(SocketContext);
+    const name = '123';
     console.log(name);
 
     // useEffect(() => {
@@ -104,7 +105,7 @@ const Videochat = (props) => {
                 <h3>{name}</h3>
               </div>
               <div className="video-avatar-container">
-                <video
+                <Webcam
                   playsInline
                   muted
                   onClick={fullScreen}
