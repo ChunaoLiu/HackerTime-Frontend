@@ -92,26 +92,17 @@ const Videochat = (props) => {
               <h3>{name}</h3>
             </div>
             <div className="video-avatar-container">
-              <video
-                playsInline
-                muted
-                onClick={fullScreen}
-                autoPlay
-                className="video-active"
-                style={{
-                  opacity: `${myVdoStatus ? "1" : "0"}`,
-                }}
-              />
-            {/* <Webcam 
-              // playsInline
-              // muted
-              // onClick={fullScreen}
-              // autoPlay
-              className="video-active"
-              style={{
-                opacity: `${userVdoStatus ? "1" : "0"}`,
-              }}
-            /> */}
+                <Webcam
+                    // playsInline
+                    // muted
+                    // onClick={fullScreen}
+                    // autoPlay
+                    className="video-active"
+                    style={{
+                        opacity: `${userVdoStatus ? "1" : "0"}`,
+                        height : 'auto'
+                    }}
+                />
           </div>
 
           <div className="iconsDiv">
