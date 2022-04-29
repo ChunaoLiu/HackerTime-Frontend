@@ -99,7 +99,7 @@ const Videochat = (props) => {
                     // autoPlay
                     className="video-active"
                     style={{
-                        opacity: `${userVdoStatus ? "1" : "0"}`,
+                        opacity: `${myVdoStatus ? "1" : "0"}`,
                         height : 'auto'
                     }}
                 />
