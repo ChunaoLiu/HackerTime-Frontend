@@ -55,7 +55,7 @@ export function Candidate (){
         'Content-Type': 'application/json'
       },
       params : {
-        "roomCode": "YStnaqPWIMWxGmGIuVrysblGzYHSjd"
+        "roomCode": roomcode
       }
     };
 
