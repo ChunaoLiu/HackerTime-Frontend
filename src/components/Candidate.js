@@ -45,7 +45,7 @@ export function Candidate (){
       return;
     }
 
-    axios.get('http://localhost:8080/v1/get-question', {data: {roomCode: ${roomcode}})
+    axios.get('http://localhost:8080/v1/get-question', {data: {roomCode: roomcode}})
       .then(res => {
         navigator(`/HackerTime-Frontend/interview/${res.data.roomCode}`,
         { state: { jwtToken: '', name: '', candname: '', companyName: '', question: question, identity: false } })
