@@ -10,6 +10,7 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import Grid from '@material-ui/core/Grid';
 import './Topbar.js'
+import { WindowSharp } from '@mui/icons-material';
 
 let editorwidth, editorwidthorg;
 
@@ -48,10 +49,12 @@ export default class IDE extends Component {
                     // Error in user code
                     this.onResultChangeHandler(res.data.stderr);
                     this.props.setCurOutput(res.data.stderr);
+                    this.send_compiler_result(res.data.stderr);
                 }
                 else{
                     this.onResultChangeHandler(res.data.stdout);
                     this.props.setCurOutput(res.data.stdout);
+                    this.send_compiler_result(res.data.stdout);
                 }
             })
             .catch(err=>{
@@ -75,7 +78,7 @@ export default class IDE extends Component {
         this.state.sock.send("/app/" + this.state.roomCode, {}, this.state.code)
     }
 
-    onResultChangeHandler = (newResult, e) => {
+    onResultChangeHandler = (newResult) => {
         this.setState({
             result: newResult
         })
@@ -116,14 +119,24 @@ export default class IDE extends Component {
             console.log(error);
         }
         );
+    }
+
+    connect_to_compiler() {
+        //const WebSocketClient = require('websocket').client;
+        
+        // TODO: change the route //
+        var socket = new SockJS('http://localhost:8080/compiler_sync');
+        //console.log(socket)
 
         var secondStompClient = Stomp.over(socket);
         this.setState({resultSock: secondStompClient})
         secondStompClient.connect({}, function connectCallback(frame) {
-            //console.log('Connected: ' + frame);
+            console.log('Connected to compiler: ' + frame);
             // TODO: add a new route
-            secondStompClient.subscribe('/topic/'+ this.state.roomCode, function (greeting) {
+            secondStompClient.subscribe('/compilerSubs/'+ this.state.roomCode, function (res) {
                 // TODO: refresh the new result
+                console.log("Compile result from socket is:\n" + res.body)
+                this.onResultChangeHandler(res.body);
 
                 //console.log(greeting)
             }.bind(this));
@@ -133,9 +146,16 @@ export default class IDE extends Component {
         }
         );
     }
+
+    send_compiler_result = (compileResult) => {
+        this.state.sock.send("/app/compiler/" + this.state.roomCode, {}, compileResult)
+    }
+
+
     editorDidMount = (e) => {
         console.log("EDITOR MOUNTED")
         this.connect()
+        this.connect_to_compiler()
         
     }
 
@@ -146,6 +166,7 @@ export default class IDE extends Component {
             code: code[lang]
         })
         this.props.setCurCode(code[lang]);
+        this.state.sock.send("/app/" + this.state.roomCode, {}, code[lang]);
     }
 
     render() {
